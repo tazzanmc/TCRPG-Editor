@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://lwjpht0jxte4" path="res://assets/textures/steam.png" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dhst2o8kdg2l1" path="res://assets/textures/grave.png" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://bdeqg5cosvaag" path="res://assets/textures/root.png" id="5_tipki"]
+[ext_resource type="FontFile" uid="uid://crdkqqpk6wfa6" path="res://assets/fonts/CAMBRIAB.TTF" id="11_eb6dy"]
+[ext_resource type="FontFile" uid="uid://ckcx7h4aqo7st" path="res://assets/fonts/CAMBRIAI.TTF" id="12_trceg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o5qli"]
 font = ExtResource("1_0wfyh")
@@ -37,9 +39,13 @@ layout_mode = 2
 color = Color(0.14396301, 0.18585241, 0.18855828, 1)
 
 [node name="UIContainer" type="HBoxContainer" parent="." unique_id=735351316]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1079.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="UIContainer" unique_id=305390186]
 modulate = Color(1, 1, 1, 0)
@@ -405,9 +411,62 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Guide Panel" type="VBoxContainer" parent="UIContainer" unique_id=363976299]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="UIContainer/Guide Panel" unique_id=549814734]
+layout_mode = 2
+text = "Text Formatting Guide:
+[b]Bold text[/b]
+[i]Italics text[/i]
+
+Icons:
+{a} = Ardor
+{s} = Spark
+{t} = Steam
+{r} = Root
+{g} = Grave
+{0}-{9} = Tribute 0-9"
+vertical_alignment = 1
+
+[node name="VSeparator4" type="VSeparator" parent="UIContainer" unique_id=380950566]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Timer" type="Timer" parent="." unique_id=1713745491]
 wait_time = 0.1
 autostart = true
+
+[node name="Watermark" type="VBoxContainer" parent="." unique_id=680651597]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = -75.0
+offset_right = 73.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Watermark" unique_id=886860130]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_eb6dy")
+theme_override_font_sizes/font_size = 20
+text = "TCRPG Editor : Build 3"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Watermark" unique_id=1618461434]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_trceg")
+text = "tazzan"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton" to="." method="_on_art_button_pressed"]
 [connection signal="file_selected" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton/ArtFileDialog" to="." method="_on_art_file_dialog_file_selected"]
