@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://cd57gwfpfqhsd" path="res://assets/textures/card_back.png" id="1_4wvaf"]
 [ext_resource type="Script" uid="uid://cho1b4kbfa0wk" path="res://scripts/card.gd" id="1_hpf3o"]
 [ext_resource type="Texture2D" uid="uid://d3fbg6b0phi1t" path="res://assets/textures/ardor.png" id="2_6u4wf"]
-[ext_resource type="Texture2D" uid="uid://brgu5cdaa2wns" path="res://assets/textures/2bcw4gdw4r8c1.jpeg" id="2_we8pq"]
 [ext_resource type="Texture2D" uid="uid://cd2d1p0ddyiu7" path="res://assets/textures/spark.png" id="3_6ligt"]
+[ext_resource type="Texture2D" uid="uid://o06wbdib6uwf" path="res://assets/textures/art_placeholder.png" id="3_42b55"]
 [ext_resource type="Texture2D" uid="uid://c8t7igsg6n21s" path="res://assets/textures/card_content.png" id="3_u8dfr"]
 [ext_resource type="Texture2D" uid="uid://lwjpht0jxte4" path="res://assets/textures/steam.png" id="4_8w5pg"]
 [ext_resource type="Texture2D" uid="uid://blylolowigcup" path="res://assets/textures/card_power_health.png" id="5_42b55"]
@@ -64,7 +64,7 @@ offset_left = 71.0
 offset_top = 149.0
 offset_right = 687.0
 offset_bottom = 580.0
-texture = ExtResource("2_we8pq")
+texture = ExtResource("3_42b55")
 expand_mode = 1
 stretch_mode = 6
 
@@ -74,7 +74,7 @@ clip_contents = true
 layout_mode = 0
 offset_right = 616.0
 offset_bottom = 462.0
-texture = ExtResource("2_we8pq")
+texture = ExtResource("3_42b55")
 expand_mode = 5
 stretch_mode = 4
 

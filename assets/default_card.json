@@ -8,7 +8,7 @@
 	"Tribute": 1,
 	"X": false,
 	"Guilds": [true, true, true, true, true],
-	"Art": "C:/Users/tazmi/Pictures/TCRPG/Art/Placeholder/cosmos_96623569.jpeg",
+	"Art": "res://assets/textures/art_placeholder.png",
 	"ArtXOffset": 0,
 	"ArtYOffset": 0,
 	"ArtScale": 1.0,

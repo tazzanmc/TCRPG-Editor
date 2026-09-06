@@ -1,6 +1,6 @@
 extends Control
 
-var art_path : String = "res://assets/textures/2bcw4gdw4r8c1.jpeg"
+var art_path : String = "res://assets/textures/art_placeholder.png"
 
 @export var card_scene: PackedScene
 
