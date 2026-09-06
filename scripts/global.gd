@@ -1,5 +1,45 @@
 extends Node
 
+
+func encode_json_data(value, full_objects = false):
+	return JSON.stringify(JSON.from_native(value, full_objects))
+
+
+func parse_json(path: String) -> Dictionary:
+	var file = FileAccess.open(path, FileAccess.READ)
+	var dict : Dictionary = {}
+	
+	var json_string = file.get_as_text()
+	var json = JSON.new()
+	var error = json.parse(json_string)
+	
+	if error == OK:
+		var data_received = json.data
+		if typeof(data_received) == TYPE_DICTIONARY:
+			dict = data_received
+			print(dict) # Prints the array.
+			return dict
+		else:
+			print("Unexpected data")
+	else:
+		print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+	
+	return dict
+
+
+func save_json(data_to_send: Variant, path: String) -> void:
+	var json_string = JSON.stringify(data_to_send)
+	
+	# We will need to open/create a new file for this data string
+	var file_access := FileAccess.open(path, FileAccess.WRITE)
+	if not file_access:
+		print("An error happened while saving data: ", FileAccess.get_open_error())
+		return
+	
+	file_access.store_line(json_string)
+	file_access.close()
+
+
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE:

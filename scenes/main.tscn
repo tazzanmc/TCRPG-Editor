@@ -341,6 +341,42 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Save!"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1266610375]
+layout_mode = 2
+
+[node name="ImportButton" type="Button" parent="UIContainer/CardCreatorContainer/HBoxContainer" unique_id=964289607]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import"
+
+[node name="ImportFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton" unique_id=81559981]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+ok_button_text = "Import"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.json")
+use_native_dialog = true
+
+[node name="ExportButton" type="Button" parent="UIContainer/CardCreatorContainer/HBoxContainer" unique_id=1267076949]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export"
+
+[node name="ExportFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton" unique_id=1060954385]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Export"
+file_mode = 2
+display_mode = 1
+access = 2
+use_native_dialog = true
+
 [node name="VSeparator2" type="VSeparator" parent="UIContainer" unique_id=1200565862]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
@@ -377,4 +413,8 @@ autostart = true
 [connection signal="file_selected" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton/ArtFileDialog" to="." method="_on_art_file_dialog_file_selected"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton" to="." method="_on_import_button_pressed"]
+[connection signal="file_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton/ImportFileDialog" to="." method="_on_import_file_dialog_file_selected"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton" to="." method="_on_export_button_pressed"]
+[connection signal="dir_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton/ExportFileDialog" to="." method="_on_export_file_dialog_dir_selected"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
