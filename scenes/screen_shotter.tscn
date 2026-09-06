@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://chl1irgn3cu0d"]
+
+[ext_resource type="Script" uid="uid://coxl6ud1b66nv" path="res://scripts/screen_shotter.gd" id="1_s1jrd"]
+
+[node name="ScreenShotter" type="Node2D" unique_id=869204480]
+script = ExtResource("1_s1jrd")
+upscale = false

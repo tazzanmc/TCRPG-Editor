@@ -1,0 +1,21 @@
+[gd_resource type="Theme" format=3 uid="uid://b7owq4kcwu0of"]
+
+[ext_resource type="FontFile" uid="uid://svvfffosn8w5" path="res://assets/fonts/CAMBRIA.TTC" id="1_4p1mf"]
+[ext_resource type="FontFile" uid="uid://crdkqqpk6wfa6" path="res://assets/fonts/CAMBRIAB.TTF" id="2_msekt"]
+[ext_resource type="FontFile" uid="uid://bjs624pcpep4w" path="res://assets/fonts/CAMBRIAZ.TTF" id="3_qjrqd"]
+[ext_resource type="FontFile" uid="uid://ckcx7h4aqo7st" path="res://assets/fonts/CAMBRIAI.TTF" id="4_tkmbj"]
+
+[resource]
+Label/fonts/font = ExtResource("1_4p1mf")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_outline_color = Color(1, 1, 1, 1)
+RichTextLabel/font_sizes/bold_font_size = 32
+RichTextLabel/font_sizes/bold_italics_font_size = 32
+RichTextLabel/font_sizes/italics_font_size = 32
+RichTextLabel/font_sizes/mono_font_size = 32
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/bold_font = ExtResource("2_msekt")
+RichTextLabel/fonts/bold_italics_font = ExtResource("3_qjrqd")
+RichTextLabel/fonts/italics_font = ExtResource("4_tkmbj")
+RichTextLabel/fonts/normal_font = ExtResource("1_4p1mf")
+TextEdit/font_sizes/font_size = 12

@@ -1,0 +1,272 @@
+[gd_scene format=3 uid="uid://dxdb3bm3kixbg"]
+
+[ext_resource type="Texture2D" uid="uid://cd57gwfpfqhsd" path="res://assets/textures/card_back.png" id="1_4wvaf"]
+[ext_resource type="Script" uid="uid://cho1b4kbfa0wk" path="res://scripts/card.gd" id="1_hpf3o"]
+[ext_resource type="Texture2D" uid="uid://d3fbg6b0phi1t" path="res://assets/textures/ardor.png" id="2_6u4wf"]
+[ext_resource type="Texture2D" uid="uid://brgu5cdaa2wns" path="res://assets/textures/2bcw4gdw4r8c1.jpeg" id="2_we8pq"]
+[ext_resource type="Texture2D" uid="uid://cd2d1p0ddyiu7" path="res://assets/textures/spark.png" id="3_6ligt"]
+[ext_resource type="Texture2D" uid="uid://c8t7igsg6n21s" path="res://assets/textures/card_content.png" id="3_u8dfr"]
+[ext_resource type="Texture2D" uid="uid://lwjpht0jxte4" path="res://assets/textures/steam.png" id="4_8w5pg"]
+[ext_resource type="Texture2D" uid="uid://blylolowigcup" path="res://assets/textures/card_power_health.png" id="5_42b55"]
+[ext_resource type="Texture2D" uid="uid://bdeqg5cosvaag" path="res://assets/textures/root.png" id="5_nvopj"]
+[ext_resource type="Texture2D" uid="uid://dhst2o8kdg2l1" path="res://assets/textures/grave.png" id="6_1yd6c"]
+[ext_resource type="Texture2D" uid="uid://6vgvc0vrpjf3" path="res://assets/textures/card_mockup.png" id="7_8w5pg"]
+[ext_resource type="FontFile" uid="uid://bw8b25ge2nc10" path="res://assets/fonts/Beleren2016-Bold.ttf" id="8_nvopj"]
+[ext_resource type="FontFile" uid="uid://ckcx7h4aqo7st" path="res://assets/fonts/CAMBRIAI.TTF" id="9_1yd6c"]
+[ext_resource type="Theme" uid="uid://b7owq4kcwu0of" path="res://assets/themes/text_theme.tres" id="12_u8dfr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m1mpe"]
+font = ExtResource("8_nvopj")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nvopj"]
+font = ExtResource("9_1yd6c")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1mpe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1yd6c"]
+font = ExtResource("8_nvopj")
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_we8pq"]
+font = ExtResource("8_nvopj")
+font_size = 86
+font_color = Color(0, 0, 0, 1)
+
+[node name="Card" type="Control" unique_id=358344043]
+layout_mode = 3
+anchor_right = 0.39100003
+anchor_bottom = 1.0
+offset_right = 0.27990723
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hpf3o")
+
+[node name="CardBack" type="TextureRect" parent="." unique_id=400062232]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 751.0
+offset_bottom = 1044.0
+texture = ExtResource("1_4wvaf")
+
+[node name="CardFrame" type="TextureRect" parent="." unique_id=54310149]
+unique_name_in_owner = true
+clip_children = 1
+clip_contents = true
+layout_mode = 0
+offset_left = 71.0
+offset_top = 149.0
+offset_right = 687.0
+offset_bottom = 580.0
+texture = ExtResource("2_we8pq")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CardArt" type="TextureRect" parent="CardFrame" unique_id=1393443380]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 0
+offset_right = 616.0
+offset_bottom = 462.0
+texture = ExtResource("2_we8pq")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="CardContent" type="TextureRect" parent="." unique_id=1373524430]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 751.0
+offset_bottom = 1044.0
+texture = ExtResource("3_u8dfr")
+
+[node name="CardPowerHealth" type="TextureRect" parent="." unique_id=685737466]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 751.0
+offset_bottom = 1044.0
+texture = ExtResource("5_42b55")
+
+[node name="Guilds" type="Control" parent="." unique_id=966169085]
+anchors_preset = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 47.0
+offset_bottom = 45.0
+
+[node name="ArdorSymbol" type="TextureRect" parent="Guilds" unique_id=11279903]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 570.0
+offset_top = 12.0
+offset_right = 626.0
+offset_bottom = 68.0
+texture = ExtResource("2_6u4wf")
+expand_mode = 1
+
+[node name="SparkSymbol" type="TextureRect" parent="Guilds" unique_id=579472389]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 559.0
+offset_top = 63.0
+offset_right = 615.0
+offset_bottom = 119.0
+texture = ExtResource("3_6ligt")
+expand_mode = 1
+
+[node name="SteamSymbol" type="TextureRect" parent="Guilds" unique_id=236017380]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 584.0
+offset_top = 112.0
+offset_right = 640.0
+offset_bottom = 168.0
+texture = ExtResource("4_8w5pg")
+expand_mode = 1
+
+[node name="RootSymbol" type="TextureRect" parent="Guilds" unique_id=160900636]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 632.0
+offset_top = 129.0
+offset_right = 688.0
+offset_bottom = 185.0
+texture = ExtResource("5_nvopj")
+expand_mode = 1
+
+[node name="GraveSymbol" type="TextureRect" parent="Guilds" unique_id=110449885]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 674.0
+offset_top = 115.0
+offset_right = 730.0
+offset_bottom = 171.0
+texture = ExtResource("6_1yd6c")
+expand_mode = 1
+
+[node name="CardMockup" type="TextureRect" parent="." unique_id=1887734211]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.32941177)
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 751.0
+offset_bottom = 1044.0
+texture = ExtResource("7_8w5pg")
+
+[node name="Text" type="Control" parent="." unique_id=1664216516]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NameContainer" type="Container" parent="Text" unique_id=1040253995]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 73.0
+offset_right = 564.0
+offset_bottom = 105.0
+
+[node name="NameLabel" type="Label" parent="Text/NameContainer" unique_id=1121367310]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Card Name"
+label_settings = SubResource("LabelSettings_m1mpe")
+
+[node name="TraitsContainer" type="Container" parent="Text" unique_id=1315032803]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 109.0
+offset_right = 573.0
+offset_bottom = 136.0
+
+[node name="TraitsLabel" type="Label" parent="Text/TraitsContainer" unique_id=393881418]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Card Traits"
+label_settings = SubResource("LabelSettings_nvopj")
+
+[node name="AbilitiesContainer" type="PanelContainer" parent="Text" unique_id=68231913]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 637.0
+offset_right = 687.0
+offset_bottom = 932.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m1mpe")
+
+[node name="AbilitiesLabel" type="RichTextLabel" parent="Text/AbilitiesContainer" unique_id=306201887]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme = ExtResource("12_u8dfr")
+bbcode_enabled = true
+text = "Passive effects are just typed out normal like this.
+[b]Ability:[/b] Activated abilities like this exhaust the card after use.
+{A}{G}{R}{S}{T}{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}"
+autowrap_mode = 2
+
+[node name="TypeContainer" type="CenterContainer" parent="Text" unique_id=1048980461]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 571.0
+offset_right = 644.0
+offset_bottom = 628.0
+
+[node name="TypeLabel" type="Label" parent="Text/TypeContainer" unique_id=854094664]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Card Type"
+label_settings = SubResource("LabelSettings_1yd6c")
+horizontal_alignment = 1
+
+[node name="TributeContainer" type="CenterContainer" parent="Text" unique_id=701722633]
+layout_mode = 0
+offset_left = 636.0
+offset_top = 59.0
+offset_right = 701.0
+offset_bottom = 141.0
+
+[node name="TributeLabel" type="Label" parent="Text/TributeContainer" unique_id=2123105483]
+unique_name_in_owner = true
+layout_mode = 2
+text = "T"
+label_settings = SubResource("LabelSettings_we8pq")
+horizontal_alignment = 1
+
+[node name="HealthContainer" type="CenterContainer" parent="Text" unique_id=1065836964]
+layout_mode = 0
+offset_left = 636.0
+offset_top = 933.0
+offset_right = 701.0
+offset_bottom = 1015.0
+
+[node name="HealthLabel" type="Label" parent="Text/HealthContainer" unique_id=994978308]
+unique_name_in_owner = true
+layout_mode = 2
+text = "H"
+label_settings = SubResource("LabelSettings_we8pq")
+horizontal_alignment = 1
+
+[node name="PowerContainer" type="CenterContainer" parent="Text" unique_id=62371593]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 934.0
+offset_right = 115.0
+offset_bottom = 1016.0
+offset_transform_enabled = true
+
+[node name="PowerLabel" type="Label" parent="Text/PowerContainer" unique_id=901507567]
+unique_name_in_owner = true
+layout_mode = 2
+text = "P"
+label_settings = SubResource("LabelSettings_we8pq")
+horizontal_alignment = 1

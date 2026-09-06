@@ -1,8 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
 
 [application]
+
 config/name="TCRPG-Editor"
+run/main_scene="uid://ychi0j7404i6"
 config/features=PackedStringArray("4.7")
-config/icon="res://assets/icon.svg"
+boot_splash/stretch_mode=0
+boot_splash/image="uid://gxupaviulouc"
+config/icon="uid://gxupaviulouc"
 
+[autoload]
 
+Global="*uid://bewspign74isj"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
+
+[gui]
+
+theme/custom="uid://b7owq4kcwu0of"
+theme/custom_font="uid://crdkqqpk6wfa6"
+
+[importer_defaults]
+
+texture={
+&"mipmaps/generate": true
+}
