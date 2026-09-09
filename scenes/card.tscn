@@ -208,6 +208,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme = ExtResource("12_u8dfr")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
 bbcode_enabled = true
 text = "Passive effects are just typed out normal like this.
 [b]Ability:[/b] Activated abilities like this exhaust the card after use.

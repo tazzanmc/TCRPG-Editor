@@ -35,6 +35,7 @@ func update_card(guilds: Array = []) -> void:
 	card_inst.change_health(str(int(%HealthNumber.value)))
 	card_inst.change_abilities(%AbilitiesField.text)
 	card_inst.change_art(art_file, Vector2(int(%XOffsetSlider.value),int(%YOffsetSlider.value)), %ScaleSlider.value)
+	card_inst.change_font_size(%FontSizeNumber.value)
 	
 	if %XCheckBox.button_pressed:
 		card_inst.change_tribute("X")
@@ -55,23 +56,26 @@ func update_card(guilds: Array = []) -> void:
 
 
 func load_card() -> void:
-	print(saved_card["Art"])
-	var json_art_path : String = saved_card["Art"]
-	art_file = ImageTexture.create_from_image(Image.load_from_file(json_art_path))
+	if saved_card.has("Art"):
+		var json_art_path : String = saved_card["Art"]
+		art_file = ImageTexture.create_from_image(Image.load_from_file(json_art_path))
+	else:
+		art_file = ImageTexture.create_from_image(Image.load_from_file("res://assets/textures/art_placeholder.png"))
 	
-	%NameField.text = saved_card["Name"]
-	%TraitsField.text = saved_card["Traits"]
-	%TypeOption.text = saved_card["Type"]
-	%PowerNumber.value = saved_card["Power"]
-	%HealthNumber.value = saved_card["Health"]
-	%AbilitiesField.text = saved_card["Abilities"]
-	%XOffsetSlider.value = saved_card["ArtXOffset"]
-	%YOffsetSlider.value = saved_card["ArtYOffset"]
-	%ScaleSlider.value = saved_card["ArtScale"]
-	%XCheckBox.button_pressed = saved_card["X"]
-	%CostNumber.value = saved_card["Tribute"]
+	%NameField.text = Global.set_or_default(saved_card, "Name", "")
+	%TraitsField.text = Global.set_or_default(saved_card, "Traits", "")
+	%TypeOption.text = Global.set_or_default(saved_card, "Type", "Creature")
+	%PowerNumber.value = Global.set_or_default(saved_card, "Power", 0)
+	%HealthNumber.value = Global.set_or_default(saved_card, "Health", 0)
+	%AbilitiesField.text = Global.set_or_default(saved_card, "Abilities", "")
+	%XOffsetSlider.value = Global.set_or_default(saved_card, "ArtXOffset", 0)
+	%YOffsetSlider.value = Global.set_or_default(saved_card, "ArtYOffset", 0)
+	%ScaleSlider.value = Global.set_or_default(saved_card, "ArtScale", 1.0)
+	%XCheckBox.button_pressed = Global.set_or_default(saved_card, "X", false)
+	%CostNumber.value = Global.set_or_default(saved_card, "Tribute", 1)
+	%FontSizeNumber.value = Global.set_or_default(saved_card, "FontSize", 32.0)
 	
-	var saved_guilds : Array = saved_card["Guilds"]
+	var saved_guilds : Array = Global.set_or_default(saved_card, "Guilds", [true, true, true, true, true])
 	var i : int = 0
 	
 	for child in %GuildContainer.get_children():
@@ -94,6 +98,7 @@ func save_card() -> void:
 	saved_card["ArtScale"] = %ScaleSlider.value
 	saved_card["X"] = %XCheckBox.button_pressed
 	saved_card["Tribute"] = %CostNumber.value
+	saved_card["FontSize"] = %FontSizeNumber.value
 	
 	var guilds : Array
 	
@@ -111,8 +116,7 @@ func _on_create_button_pressed() -> void:
 
 
 func _on_save_button_pressed() -> void:
-	await get_tree().create_timer(1).timeout
-	%Screenshotter.TAKE_SCREENSHOT(%NameField.text)
+	%SaveFileDialog.popup_centered_clamped()
 
 
 func _on_art_button_pressed() -> void:
@@ -148,3 +152,8 @@ func _on_export_file_dialog_dir_selected(dir: String) -> void:
 	var file_name : String = %NameField.text.replace(" ","-").replace(",","").replace(".","").replace("!","").replace(":","").replace("?","")
 	var path : String = dir + "/" + "tcrpg-card_" + file_name + ".json"
 	Global.save_json(saved_card, path)
+
+
+func _on_save_file_dialog_dir_selected(dir: String) -> void:
+	await get_tree().create_timer(1).timeout
+	%Screenshotter.TAKE_SCREENSHOT(%NameField.text, dir)

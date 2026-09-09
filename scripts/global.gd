@@ -76,3 +76,9 @@ func format_rich_text(old_text: String) -> String:
 	new_text = new_text.replace("{9}","[img height=1.2em]res://assets/textures/generic_9.png[/img]")
 	
 	return new_text
+
+
+func set_or_default(set_to: Dictionary, key: Variant, default: Variant) -> Variant:
+	if set_to.has(key):
+		return set_to[key]
+	return default

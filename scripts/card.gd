@@ -81,3 +81,11 @@ func change_guids(new_guilds: Array) -> void:
 			else:
 				%GraveSymbol.visible = false
 		i += 1
+
+
+func change_font_size(font_size: int):
+	%AbilitiesLabel["theme_override_font_sizes/normal_font_size"] = font_size
+	%AbilitiesLabel["theme_override_font_sizes/bold_font_size"] = font_size
+	%AbilitiesLabel["theme_override_font_sizes/bold_italics_font_size"] = font_size
+	%AbilitiesLabel["theme_override_font_sizes/italics_font_size"] = font_size
+	%AbilitiesLabel["theme_override_font_sizes/mono_font_size"] = font_size

@@ -11,11 +11,10 @@ class_name Screenshotter
 @onready var resizedWidth : int = get_viewport_rect().size.x * scaleFactor
 @onready var resizedHeight : int = get_viewport_rect().size.y * scaleFactor
 
-func TAKE_SCREENSHOT(file_name : String):
+func TAKE_SCREENSHOT(file_name : String, screenshot_path : String):
 	var date = Time.get_datetime_string_from_system().replace(".","_").replace(":","_")
 	file_name = file_name.replace(" ","-").replace(",","").replace(".","").replace("!","").replace(":","").replace("?","")
-	var screenshot_path = OS.get_system_dir(OS.SYSTEM_DIR_PICTURES) \
-	+ "/" + "tcrpg-card_" + file_name + "_" + date + ".png"
+	screenshot_path = screenshot_path + "/" + "tcrpg-card_" + file_name + "_" + date + ".png"
 	var image = get_viewport().get_texture().get_image()
 
 	if upscale:

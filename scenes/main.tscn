@@ -220,7 +220,7 @@ layout_mode = 2
 
 [node name="AbilitiesLabel" type="Label" parent="UIContainer/CardCreatorContainer/AbilitiesContainer" unique_id=10036474]
 layout_mode = 2
-text = "Traits: "
+text = "Abilities: "
 
 [node name="AbilitiesField" type="TextEdit" parent="UIContainer/CardCreatorContainer/AbilitiesContainer" unique_id=49817304]
 unique_name_in_owner = true
@@ -233,6 +233,26 @@ placeholder_text = "[b]Ability:[/b] Stuff
 [img height=1em]res://assets/textures/ardor.png[/img]"
 wrap_mode = 1
 caret_blink = true
+
+[node name="FontSizeContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/AbilitiesContainer" unique_id=966889113]
+layout_mode = 2
+
+[node name="FontSizeLabel" type="Label" parent="UIContainer/CardCreatorContainer/AbilitiesContainer/FontSizeContainer" unique_id=796263718]
+layout_mode = 2
+text = "Font Size = "
+
+[node name="FontSizeNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/AbilitiesContainer/FontSizeContainer" unique_id=1158062492]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_sugp2")
+max_value = 256.0
+value = 32.0
+allow_greater = true
+
+[node name="HSeparator3" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1444971541]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
 
 [node name="ArtContainer" type="VBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=711960796]
 layout_mode = 2
@@ -347,6 +367,18 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Save!"
 
+[node name="SaveFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/SaveButton" unique_id=89710558]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Save"
+file_mode = 2
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.png")
+use_native_dialog = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1266610375]
 layout_mode = 2
 
@@ -381,7 +413,30 @@ ok_button_text = "Export"
 file_mode = 2
 display_mode = 1
 access = 2
+filters = PackedStringArray("*.json")
 use_native_dialog = true
+
+[node name="HSeparator2" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1144939141]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Watermark" type="VBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=680651597]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UIContainer/CardCreatorContainer/Watermark" unique_id=886860130]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_eb6dy")
+theme_override_font_sizes/font_size = 20
+text = "TCRPG Editor : Build 4"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UIContainer/CardCreatorContainer/Watermark" unique_id=1618461434]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_trceg")
+text = "tazzan"
+horizontal_alignment = 1
 
 [node name="VSeparator2" type="VSeparator" parent="UIContainer" unique_id=1200565862]
 modulate = Color(1, 1, 1, 0)
@@ -389,14 +444,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="UIContainer" unique_id=860967775]
+custom_maximum_size = Vector2(762, 1080)
 layout_mode = 2
 
 [node name="CardViewport" type="SubViewport" parent="UIContainer/SubViewportContainer" unique_id=1006069490]
 unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(762, 1076)
-size_2d_override = Vector2i(1524, 2152)
+size = Vector2i(762, 1080)
 render_target_update_mode = 4
 
 [node name="Screenshotter" type="Node2D" parent="UIContainer/SubViewportContainer/CardViewport" unique_id=921259535]
@@ -440,38 +495,11 @@ size_flags_horizontal = 3
 wait_time = 0.1
 autostart = true
 
-[node name="Watermark" type="VBoxContainer" parent="." unique_id=680651597]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -73.0
-offset_top = -75.0
-offset_right = 73.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
-
-[node name="Label" type="Label" parent="Watermark" unique_id=886860130]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("11_eb6dy")
-theme_override_font_sizes/font_size = 20
-text = "TCRPG Editor : Build 3"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="Watermark" unique_id=1618461434]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("12_trceg")
-text = "tazzan"
-horizontal_alignment = 1
-
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton" to="." method="_on_art_button_pressed"]
 [connection signal="file_selected" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton/ArtFileDialog" to="." method="_on_art_file_dialog_file_selected"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="dir_selected" from="UIContainer/CardCreatorContainer/SaveButton/SaveFileDialog" to="." method="_on_save_file_dialog_dir_selected"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton" to="." method="_on_import_button_pressed"]
 [connection signal="file_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton/ImportFileDialog" to="." method="_on_import_file_dialog_file_selected"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton" to="." method="_on_export_button_pressed"]
