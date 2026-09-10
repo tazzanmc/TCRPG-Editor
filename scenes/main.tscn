@@ -61,20 +61,33 @@ layout_mode = 2
 text = "TCRPG Card Creator"
 label_settings = SubResource("LabelSettings_o5qli")
 
-[node name="NameFieldContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=264301057]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=746731507]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="UIContainer/CardCreatorContainer/NameFieldContainer" unique_id=973786205]
+[node name="NameFieldContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/HBoxContainer2" unique_id=264301057]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="UIContainer/CardCreatorContainer/HBoxContainer2/NameFieldContainer" unique_id=973786205]
 layout_mode = 2
 text = "Name: "
 
-[node name="NameField" type="LineEdit" parent="UIContainer/CardCreatorContainer/NameFieldContainer" unique_id=684090160]
+[node name="NameField" type="LineEdit" parent="UIContainer/CardCreatorContainer/HBoxContainer2/NameFieldContainer" unique_id=684090160]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_sugp2")
 placeholder_text = "Name, Title"
 caret_blink = true
+
+[node name="NameWidthNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/HBoxContainer2/NameFieldContainer" unique_id=586845434]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_sugp2")
+max_value = 20.0
+step = 0.5
+value = 10.0
+allow_greater = true
 
 [node name="TraitsFieldContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1487013209]
 layout_mode = 2

@@ -89,3 +89,7 @@ func change_font_size(font_size: int):
 	%AbilitiesLabel["theme_override_font_sizes/bold_italics_font_size"] = font_size
 	%AbilitiesLabel["theme_override_font_sizes/italics_font_size"] = font_size
 	%AbilitiesLabel["theme_override_font_sizes/mono_font_size"] = font_size
+
+
+func change_name_width(name_width: float):
+	$%NameLabel.scale.x = name_width / 10
