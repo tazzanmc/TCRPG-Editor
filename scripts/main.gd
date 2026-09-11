@@ -59,9 +59,11 @@ func update_card(guilds: Array = []) -> void:
 func load_card() -> void:
 	if saved_card.has("Art"):
 		var json_art_path : String = saved_card["Art"]
-		art_file = ImageTexture.create_from_image(Image.load_from_file(json_art_path))
+		art_path = json_art_path
 	else:
-		art_file = ImageTexture.create_from_image(Image.load_from_file("res://assets/textures/art_placeholder.png"))
+		art_path = "res://assets/textures/art_placeholder.png"
+	
+	art_file = ImageTexture.create_from_image(Image.load_from_file(art_path))
 	
 	%NameField.text = Global.set_or_default(saved_card, "Name", "")
 	%TraitsField.text = Global.set_or_default(saved_card, "Traits", "")
@@ -75,7 +77,7 @@ func load_card() -> void:
 	%XCheckBox.button_pressed = Global.set_or_default(saved_card, "X", false)
 	%CostNumber.value = Global.set_or_default(saved_card, "Tribute", 1)
 	%FontSizeNumber.value = Global.set_or_default(saved_card, "FontSize", 32.0)
-	%NameWidthNumber.value = Global.set_or_default(saved_card, "NameWidth", 1.0)
+	%NameWidthNumber.value = Global.set_or_default(saved_card, "NameWidth", 10.0)
 	
 	var saved_guilds : Array = Global.set_or_default(saved_card, "Guilds", [true, true, true, true, true])
 	var i : int = 0
