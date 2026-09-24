@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://lwjpht0jxte4" path="res://assets/textures/steam.png" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dhst2o8kdg2l1" path="res://assets/textures/grave.png" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://bdeqg5cosvaag" path="res://assets/textures/root.png" id="5_tipki"]
+[ext_resource type="Script" uid="uid://dgdvuigkibr18" path="res://scripts/change_scene_button.gd" id="10_trceg"]
 [ext_resource type="FontFile" uid="uid://crdkqqpk6wfa6" path="res://assets/fonts/CAMBRIAB.TTF" id="11_eb6dy"]
 [ext_resource type="FontFile" uid="uid://ckcx7h4aqo7st" path="res://assets/fonts/CAMBRIAI.TTF" id="12_trceg"]
 
@@ -429,6 +430,17 @@ access = 2
 filters = PackedStringArray("*.json")
 use_native_dialog = true
 
+[node name="HSeparator4" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1405191546]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="CardViewerButton" type="Button" parent="UIContainer/CardCreatorContainer" unique_id=1392082911]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bulk Viewer"
+script = ExtResource("10_trceg")
+
 [node name="HSeparator2" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1144939141]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 16)
@@ -442,7 +454,7 @@ alignment = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_eb6dy")
 theme_override_font_sizes/font_size = 20
-text = "TCRPG Editor : Build 4"
+text = "TCRPG Editor : Build 5"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="UIContainer/CardCreatorContainer/Watermark" unique_id=1618461434]
@@ -517,4 +529,5 @@ autostart = true
 [connection signal="file_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton/ImportFileDialog" to="." method="_on_import_file_dialog_file_selected"]
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton" to="." method="_on_export_button_pressed"]
 [connection signal="dir_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton/ExportFileDialog" to="." method="_on_export_file_dialog_dir_selected"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/CardViewerButton" to="UIContainer/CardCreatorContainer/CardViewerButton" method="_on_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

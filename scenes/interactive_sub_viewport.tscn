@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ruyvlinwjnl6"]
+
+[ext_resource type="Script" uid="uid://bijv6074rkjhn" path="res://scripts/interactive_sub_viewport.gd" id="1_84dgc"]
+
+[node name="InteractiveSubViewport" type="SubViewportContainer" unique_id=17311524]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_84dgc")
+card_json = null
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1327959359]
+
+[node name="PopupMenu" type="PopupMenu" parent="CanvasLayer" unique_id=1288230050]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Card Options"
+size = Vector2i(231, 132)
+min_size = Vector2i(230, 132)
+keep_title_visible = true
+content_scale_size = Vector2i(380, 320)
+content_scale_aspect = 4
+theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_separator_size = 32
+item_count = 3
+item_0/text = "Card Options"
+item_0/id = 0
+item_0/separator = true
+item_1/text = "Edit"
+item_1/checkable = 2
+item_1/id = 1
+item_2/text = "Cancel"
+item_2/checkable = 2
+item_2/id = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="id_pressed" from="CanvasLayer/PopupMenu" to="." method="_on_popup_menu_id_pressed"]

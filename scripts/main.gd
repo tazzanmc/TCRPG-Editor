@@ -6,12 +6,12 @@ var art_path : String = "res://assets/textures/art_placeholder.png"
 
 @onready var card_inst : Card = card_scene.instantiate()
 @onready var art_file : ImageTexture = ImageTexture.create_from_image(Image.load_from_file(art_path))
-@onready var saved_card: Dictionary = Global.parse_json("res://assets/default_card.json")
+@onready var saved_card: Dictionary = Global.parse_json(Global.saved_json)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print(saved_card["Art"])
-	pass # Replace with function body.
+	load_card()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

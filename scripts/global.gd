@@ -1,5 +1,6 @@
 extends Node
 
+var saved_json : String = "res://assets/default_card.json"
 
 func encode_json_data(value, full_objects = false):
 	return JSON.stringify(JSON.from_native(value, full_objects))
