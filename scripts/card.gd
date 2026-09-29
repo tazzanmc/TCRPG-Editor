@@ -1,6 +1,37 @@
 extends Control
 class_name Card
 
+@export var card_json_path : String = Global.default_card
+
+func update_card() -> void:
+	var new_card = Global.parse_json(card_json_path)
+	var art_path : String
+	
+	# Set the art file path
+	if new_card.has("Art"):
+		var json_art_path : String = new_card["Art"]
+		art_path = json_art_path
+	else:
+		art_path = Global.default_art
+	
+	var art_file = ImageTexture.create_from_image(Image.load_from_file(art_path))
+	
+	# Format card
+	change_name(Global.set_or_default(new_card, "Name", ""))
+	change_traits(Global.set_or_default(new_card, "Traits", ""))
+	change_type(Global.set_or_default(new_card, "Type", "Creature"))
+	change_power(str(int(Global.set_or_default(new_card, "Power", 0))))
+	change_health(str(int(Global.set_or_default(new_card, "Health", 0))))
+	change_abilities(Global.set_or_default(new_card, "Abilities", ""))
+	change_art(art_file, Vector2(Global.set_or_default(new_card, "ArtXOffset", 0),Global.set_or_default(new_card, "ArtYOffset", 0)), Global.set_or_default(new_card, "ArtScale", 1.0))
+	change_font_size(Global.set_or_default(new_card, "FontSize", 32.0))
+	change_name_width(Global.set_or_default(new_card, "NameWidth", 10.0))
+	if Global.set_or_default(new_card, "X", false):
+		change_tribute("X")
+	else:
+		change_tribute(str(int(Global.set_or_default(new_card, "Tribute", 1))))
+	change_guids(Global.set_or_default(new_card, "Guilds", [true, true, true, true, true]))
+
 
 func change_name(new_str: String) -> void:
 	%NameLabel.text = new_str

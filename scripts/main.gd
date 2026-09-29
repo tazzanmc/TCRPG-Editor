@@ -155,7 +155,7 @@ func _on_export_file_dialog_dir_selected(dir: String) -> void:
 	save_card()
 	print(dir)
 	var file_name : String = %NameField.text.replace(" ","-").replace(",","").replace(".","").replace("!","").replace(":","").replace("?","")
-	var path : String = dir + "/" + "tcrpg-card_" + file_name + ".json"
+	var path : String = dir + "/" + "tcrpg-card_" + file_name + "_" + saved_card["Type"] + ".json"
 	Global.save_json(saved_card, path)
 
 

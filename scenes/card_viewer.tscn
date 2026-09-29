@@ -74,6 +74,15 @@ text = "Go Back"
 script = ExtResource("4_3bfca")
 file_path = "res://scenes/main.tscn"
 
+[node name="LoadedCardsLabel" type="Label" parent="CanvasLayer" unique_id=1010290391]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 128.0
+offset_bottom = 92.0
+theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+text = "Loaded 0 cards"
+
 [connection signal="canceled" from="CardViewerFileDialog" to="." method="_on_card_viewer_file_dialog_canceled"]
 [connection signal="files_selected" from="CardViewerFileDialog" to="." method="_on_card_viewer_file_dialog_files_selected"]
 [connection signal="pressed" from="CanvasLayer/MainButton" to="CanvasLayer/MainButton" method="_on_pressed"]

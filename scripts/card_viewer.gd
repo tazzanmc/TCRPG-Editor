@@ -3,6 +3,7 @@ extends Control
 const main_scene = preload("res://scenes/main.tscn")
 
 var art_path : String = "res://assets/textures/art_placeholder.png"
+var loaded_cards : int = 0
 
 @export var card_scene: PackedScene
 @export var interactive_sub_viewport: PackedScene
@@ -28,7 +29,7 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 		var json_art_path : String = card["Art"]
 		art_path = json_art_path
 	else:
-		art_path = "res://assets/textures/art_placeholder.png"
+		art_path = Global.default_art
 	
 	art_file = ImageTexture.create_from_image(Image.load_from_file(art_path))
 	
@@ -72,8 +73,8 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 	if Global.set_or_default(card, "X", false):
 		card_inst.change_tribute("X")
 	else:
-		card_inst.change_tribute(str(int(Global.set_or_default(saved_card, "Tribute", 1))))
-	card_inst.change_guids(Global.set_or_default(saved_card, "Guilds", [true, true, true, true, true]))
+		card_inst.change_tribute(str(int(Global.set_or_default(card, "Tribute", 1))))
+	card_inst.change_guids(Global.set_or_default(card, "Guilds", [true, true, true, true, true]))
 
 
 func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> void:
@@ -85,6 +86,8 @@ func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> voi
 		for i in paths.size():
 			saved_card = Global.parse_json(paths[i])
 			create_card(paths[i], saved_card, i, cards_per_row)
+			loaded_cards += 1
+			%LoadedCardsLabel.text = ("Loaded " + str(loaded_cards) + " cards")
 
 
 func _on_card_viewer_file_dialog_canceled() -> void:

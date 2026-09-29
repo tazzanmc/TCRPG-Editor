@@ -1,4 +1,9 @@
+@tool
 extends Node
+class_name G
+
+const default_card : String = "res://assets/default_card.json"
+const default_art : String = "res://assets/textures/art_placeholder.png"
 
 var saved_json : String = "res://assets/default_card.json"
 
