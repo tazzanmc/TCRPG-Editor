@@ -10,7 +10,6 @@ var art_path : String = "res://assets/textures/art_placeholder.png"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(saved_card["Art"])
 	load_card()
 
 
@@ -153,7 +152,6 @@ func _on_import_file_dialog_file_selected(path: String) -> void:
 
 func _on_export_file_dialog_dir_selected(dir: String) -> void:
 	save_card()
-	print(dir)
 	var file_name : String = %NameField.text.replace(" ","-").replace(",","").replace(".","").replace("!","").replace(":","").replace("?","")
 	var path : String = dir + "/" + "tcrpg-card_" + file_name + "_" + saved_card["Type"] + ".json"
 	Global.save_json(saved_card, path)

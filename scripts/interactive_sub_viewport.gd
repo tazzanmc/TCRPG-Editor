@@ -37,5 +37,4 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 	# Edit button
 	if id == 1:
 		Global.saved_json = card_json
-		print("Global json: " + str(Global.saved_json))
 		get_tree().change_scene_to_file(main_scene)

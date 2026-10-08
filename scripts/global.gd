@@ -1,4 +1,3 @@
-@tool
 extends Node
 class_name G
 
@@ -23,7 +22,6 @@ func parse_json(path: String) -> Dictionary:
 		var data_received = json.data
 		if typeof(data_received) == TYPE_DICTIONARY:
 			dict = data_received
-			print(dict) # Prints the array.
 			return dict
 		else:
 			print("Unexpected data")

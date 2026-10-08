@@ -1,9 +1,18 @@
 extends Control
 
-const main_scene = preload("res://scenes/main.tscn")
+@export var main_scene : String = "res://scenes/main.tscn"
 
 var art_path : String = "res://assets/textures/art_placeholder.png"
 var loaded_cards : int = 0
+var loaded_card_paths : PackedStringArray
+
+var loaded_ardor_cards : int = 0
+var loaded_spark_cards : int = 0
+var loaded_steam_cards : int = 0
+var loaded_root_cards : int = 0
+var loaded_grave_cards : int = 0
+var loaded_multi_cards : int = 0
+var loaded_guildless_cards : int = 0
 
 @export var card_scene: PackedScene
 @export var interactive_sub_viewport: PackedScene
@@ -23,7 +32,7 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func create_card(card_path: String, card: Dictionary = saved_card, card_it: int = 0, cards_per_row: int = 0, x_offset: float = 0.0, y_offset: float = 0.0) -> void:
+func create_card(card_path: String, card: Dictionary = saved_card, card_it: int = 0, cards_per_row: int = 0, sorted: bool = false, x_offset: float = 0.0, y_offset: float = 0.0) -> void:
 	# Set the art file path
 	if card.has("Art"):
 		var json_art_path : String = card["Art"]
@@ -49,11 +58,27 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 	# Instance a fresh card
 	var card_inst : Card = card_scene.instantiate()
 	
-	# If there's a limit to cards per row, create a new row if the previous one fills up
-	if cards_per_row != 0:
-		if (card_it % cards_per_row) == 0:
-			card_row_container = HBoxContainer.new()
-			%CardContainer.add_child(card_row_container)
+	if sorted:
+		if Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [true, false, false, false, false]:
+			card_row_container = %ArdorRow
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, true, false, false, false]:
+			card_row_container = %SparkRow
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, true, false, false]:
+			card_row_container = %SteamRow
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, true, false]:
+			card_row_container = %RootRow
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, true]:
+			card_row_container = %GraveRow
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, false]:
+			card_row_container = %GuildlessRow
+		else:
+			card_row_container = %MultiRow
+	else:
+		# If there's a limit to cards per row, create a new row if the previous one fills up
+		if cards_per_row != 0:
+			if (card_it % cards_per_row) == 0:
+				card_row_container = HBoxContainer.new()
+				%CardContainer.add_child(card_row_container)
 	
 	# Setup hierarchy for all the containers
 	card_row_container.add_child(viewport_container)
@@ -75,19 +100,56 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 	else:
 		card_inst.change_tribute(str(int(Global.set_or_default(card, "Tribute", 1))))
 	card_inst.change_guids(Global.set_or_default(card, "Guilds", [true, true, true, true, true]))
+	
+	if Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [true, false, false, false, false]:
+		loaded_ardor_cards += 1
+	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, true, false, false, false]:
+		loaded_spark_cards += 1
+	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, true, false, false]:
+		loaded_steam_cards += 1
+	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, true, false]:
+		loaded_root_cards += 1
+	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, true]:
+		loaded_grave_cards += 1
+	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, false]:
+		loaded_guildless_cards += 1
+	else:
+		loaded_multi_cards += 1
+
+
+func clear_cards() -> void:
+	loaded_cards = 0
+	loaded_ardor_cards = 0
+	loaded_spark_cards = 0
+	loaded_steam_cards = 0
+	loaded_root_cards = 0
+	loaded_grave_cards = 0
+	loaded_multi_cards = 0
+	loaded_guildless_cards = 0
+	
+	var container_children : Array = %CardContainer.get_children()
+	for i in range(container_children.size()):
+		var internal_children : Array = container_children[i].get_children()
+		for ii in range(internal_children.size()):
+			internal_children[ii].queue_free()
+
+
+func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
+	clear_cards()
+	for i in paths.size():
+		saved_card = Global.parse_json(paths[i])
+		create_card(paths[i], saved_card, i, cards_per_row, true)
+		loaded_cards += 1
 
 
 func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> void:
 	var cards_per_row : int = 6
+	loaded_card_paths = paths
 	
 	if paths.is_empty():
 		go_to_main_menu()
 	else:
-		for i in paths.size():
-			saved_card = Global.parse_json(paths[i])
-			create_card(paths[i], saved_card, i, cards_per_row)
-			loaded_cards += 1
-			%LoadedCardsLabel.text = ("Loaded " + str(loaded_cards) + " cards")
+		load_cards(paths, cards_per_row)
 
 
 func _on_card_viewer_file_dialog_canceled() -> void:
@@ -95,4 +157,28 @@ func _on_card_viewer_file_dialog_canceled() -> void:
 
 
 func go_to_main_menu() -> void:
-	get_tree().change_scene_to_packed(main_scene)
+	get_tree().change_scene_to_file(main_scene)
+
+
+func _on_new_button_pressed() -> void:
+	clear_cards()
+	%CardViewerFileDialog.popup_centered_clamped()
+
+
+func _on_reload_button_pressed() -> void:
+	clear_cards()
+	load_cards(loaded_card_paths)
+
+
+func _on_timer_timeout() -> void:
+	%LoadedCardsLabel.text = (
+		"Loaded " + str(loaded_cards) + " cards" + "\n"
+		+ "\n"
+		+ "Loaded " + str(loaded_ardor_cards) + " Ardor cards" + "\n"
+		+ "Loaded " + str(loaded_spark_cards) + " Spark cards" + "\n"
+		+ "Loaded " + str(loaded_steam_cards) + " Steam cards" + "\n"
+		+ "Loaded " + str(loaded_root_cards) + " Root cards" + "\n"
+		+ "Loaded " + str(loaded_grave_cards) + " Grave cards" + "\n"
+		+ "Loaded " + str(loaded_multi_cards) + " Multi-guild cards" + "\n"
+		+ "Loaded " + str(loaded_guildless_cards) + " Guildless cards" + "\n"
+		)
