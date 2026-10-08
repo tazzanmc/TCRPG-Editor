@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cd2d1p0ddyiu7" path="res://assets/textures/spark.png" id="3_6ligt"]
 [ext_resource type="Texture2D" uid="uid://o06wbdib6uwf" path="res://assets/textures/art_placeholder.png" id="3_42b55"]
 [ext_resource type="Texture2D" uid="uid://c8t7igsg6n21s" path="res://assets/textures/card_content.png" id="3_u8dfr"]
+[ext_resource type="Texture2D" uid="uid://b8cbv5fdgict8" path="res://assets/textures/card_outline.png" id="3_xjciw"]
 [ext_resource type="Texture2D" uid="uid://lwjpht0jxte4" path="res://assets/textures/steam.png" id="4_8w5pg"]
 [ext_resource type="Texture2D" uid="uid://blylolowigcup" path="res://assets/textures/card_power_health.png" id="5_42b55"]
 [ext_resource type="Texture2D" uid="uid://bdeqg5cosvaag" path="res://assets/textures/root.png" id="5_nvopj"]
@@ -55,7 +56,16 @@ offset_right = 751.0
 offset_bottom = 1044.0
 texture = ExtResource("1_4wvaf")
 
-[node name="CardFrame" type="TextureRect" parent="." unique_id=54310149]
+[node name="CardOutline" type="TextureRect" parent="." unique_id=560507419]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 751.0
+offset_bottom = 1044.0
+texture = ExtResource("3_xjciw")
+
+[node name="CardArtFrame" type="TextureRect" parent="." unique_id=54310149]
 unique_name_in_owner = true
 clip_children = 1
 clip_contents = true
@@ -68,7 +78,7 @@ texture = ExtResource("3_42b55")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="CardArt" type="TextureRect" parent="CardFrame" unique_id=1393443380]
+[node name="CardArt" type="TextureRect" parent="CardArtFrame" unique_id=1393443380]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 0

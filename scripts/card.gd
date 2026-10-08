@@ -84,34 +84,39 @@ func change_art(new_tex: Texture2D, new_offset: Vector2 = Vector2(0.0, 0.0), new
 
 
 func change_guids(new_guilds: Array) -> void:
-	var i : int = 0
-	for guild in new_guilds:
-		if i == 0:
-			if guild == true:
-				%ArdorSymbol.visible = true
-			else:
-				%ArdorSymbol.visible = false
-		if i == 1:
-			if guild == true:
-				%SparkSymbol.visible = true
-			else:
-				%SparkSymbol.visible = false
-		if i == 2:
-			if guild == true:
-				%SteamSymbol.visible = true
-			else:
-				%SteamSymbol.visible = false
-		if i == 3:
-			if guild == true:
-				%RootSymbol.visible = true
-			else:
-				%RootSymbol.visible = false
-		if i == 4:
-			if guild == true:
-				%GraveSymbol.visible = true
-			else:
-				%GraveSymbol.visible = false
-		i += 1
+	if new_guilds == [false, false, false, false, false]:
+		%CardOutline.modulate = Color(1.0, 1.0, 1.0)
+	
+	for i in range(new_guilds.size()):
+		if new_guilds[0] == true:
+			%ArdorSymbol.visible = true
+			%CardOutline.modulate = Color(0.61, 0.898, 0.61)
+		else:
+			%ArdorSymbol.visible = false
+			
+		if new_guilds[1] == true:
+			%SparkSymbol.visible = true
+			%CardOutline.modulate = Color(1.481, 0.898, 0.316)
+		else:
+			%SparkSymbol.visible = false
+			
+		if new_guilds[2] == true:
+			%SteamSymbol.visible = true
+			%CardOutline.modulate = Color(0.607, 0.898, 1.19)
+		else:
+			%SteamSymbol.visible = false
+			
+		if new_guilds[3] == true:
+			%RootSymbol.visible = true
+			%CardOutline.modulate = Color(0.898, 0.606, 0.313)
+		else:
+			%RootSymbol.visible = false
+			
+		if new_guilds[4] == true:
+			%GraveSymbol.visible = true
+			%CardOutline.modulate = Color(0.898, 0.61, 0.898)
+		else:
+			%GraveSymbol.visible = false
 
 
 func change_font_size(font_size: int):
