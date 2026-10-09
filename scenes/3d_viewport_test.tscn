@@ -28,7 +28,7 @@ size = Vector2i(762, 1080)
 render_target_update_mode = 4
 
 [node name="Card" parent="CardViewport" unique_id=358344043 instance=ExtResource("1_3owna")]
-card_json_path = "\"C:\\Users\\tazmi\\Pictures\\TCRPG\\Cards\\tcrpg-card_Abandoned-Automaton.json\""
+card_json_path = "\"C:\\Users\\tazmi\\Pictures\\TCRPG\\Cards\\tcrpg-card_Wayfaring-Relic_Team Captain.json\""
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1948054449]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
