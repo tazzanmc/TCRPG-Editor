@@ -3,6 +3,20 @@ class_name Card
 
 @export var card_json_path : String = Global.default_card
 
+@export var card_name : String = "Name"
+@export var card_traits : PackedStringArray
+@export_enum("Creature", "Team Captain", "Object", "Action", "Setting", "Tribute", "Curse") var card_type : String = "Creature"
+@export var card_power : int = 0
+@export var card_health : int = 0
+@export var card_abilities : String = ""
+@export var card_tribute : int = 0
+@export var card_guilds : Array = [true, true, true, true, true]
+
+
+func _ready() -> void:
+	update_card()
+
+
 func update_card() -> void:
 	var new_card = Global.parse_json(card_json_path)
 	var art_path : String
@@ -20,8 +34,8 @@ func update_card() -> void:
 	change_name(Global.set_or_default(new_card, "Name", ""))
 	change_traits(Global.set_or_default(new_card, "Traits", ""))
 	change_type(Global.set_or_default(new_card, "Type", "Creature"))
-	change_power(str(int(Global.set_or_default(new_card, "Power", 0))))
-	change_health(str(int(Global.set_or_default(new_card, "Health", 0))))
+	change_power(int(Global.set_or_default(new_card, "Power", 0)))
+	change_health(int(Global.set_or_default(new_card, "Health", 0)))
 	change_abilities(Global.set_or_default(new_card, "Abilities", ""))
 	change_art(art_file, Vector2(Global.set_or_default(new_card, "ArtXOffset", 0),Global.set_or_default(new_card, "ArtYOffset", 0)), Global.set_or_default(new_card, "ArtScale", 1.0))
 	change_font_size(Global.set_or_default(new_card, "FontSize", 32.0))
@@ -35,14 +49,18 @@ func update_card() -> void:
 
 func change_name(new_str: String) -> void:
 	%NameLabel.text = new_str
+	card_name = new_str
 
 
 func change_traits(new_str: String) -> void:
 	%TraitsLabel.text = new_str
+	card_traits = new_str.split(", ", false)
 
 
 func change_type(new_str: String) -> void:
 	%TypeLabel.text = new_str
+	card_type = new_str
+	
 	if new_str == "Creature" or new_str == "Team Captain":
 		%CardPowerHealth.visible = true
 		%PowerLabel.visible = true
@@ -61,20 +79,27 @@ func change_type(new_str: String) -> void:
 
 
 func change_abilities(new_str: String) -> void:
+	card_abilities = new_str
 	new_str = Global.format_rich_text(new_str)
 	%AbilitiesLabel.text = new_str
 
 
-func change_power(new_str: String) -> void:
-	%PowerLabel.text = new_str
+func change_power(new_int: int) -> void:
+	%PowerLabel.text = str(new_int)
+	card_power = new_int
 
 
-func change_health(new_str: String) -> void:
-	%HealthLabel.text = new_str
+func change_health(new_int: int) -> void:
+	%HealthLabel.text = str(new_int)
+	card_health = new_int
 
 
 func change_tribute(new_str: String) -> void:
 	%TributeLabel.text = new_str
+	if new_str == "X":
+		card_tribute = -1
+	else:
+		card_tribute = int(new_str)
 
 
 func change_art(new_tex: Texture2D, new_offset: Vector2 = Vector2(0.0, 0.0), new_scale: float = 1.0) -> void:
@@ -84,6 +109,7 @@ func change_art(new_tex: Texture2D, new_offset: Vector2 = Vector2(0.0, 0.0), new
 
 
 func change_guids(new_guilds: Array) -> void:
+	card_guilds = new_guilds
 	if new_guilds == [false, false, false, false, false]:
 		%CardOutline.modulate = Color(1.0, 1.0, 1.0)
 	

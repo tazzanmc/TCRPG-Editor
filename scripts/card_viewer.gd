@@ -16,6 +16,8 @@ var loaded_guildless_cards : int = 0
 
 @export var card_scene: PackedScene
 @export var interactive_sub_viewport: PackedScene
+var viewport_container: SubViewportContainer
+var viewport: SubViewport
 @export var card_resolution: Vector2 = Vector2(762.0, 1080.0)
 
 @onready var art_file : ImageTexture = ImageTexture.create_from_image(Image.load_from_file(art_path))
@@ -42,16 +44,17 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 	
 	art_file = ImageTexture.create_from_image(Image.load_from_file(art_path))
 	
-	# Create and format the card viewport containers
-	var viewport_container: SubViewportContainer = interactive_sub_viewport.instantiate()
-	viewport_container.custom_minimum_size = card_resolution
-	viewport_container.custom_maximum_size = card_resolution
-	viewport_container.offset_transform_enabled = true
-	viewport_container.offset_transform_position = Vector2(x_offset, y_offset)
-	viewport_container.card_json = card_path
+	if Global.set_or_default(card, "Type", "Creature") != "Team Captain":
+		# Create and format the card viewport containers
+		viewport_container = interactive_sub_viewport.instantiate()
+		viewport_container.custom_minimum_size = card_resolution
+		viewport_container.custom_maximum_size = card_resolution
+		viewport_container.offset_transform_enabled = true
+		viewport_container.offset_transform_position = Vector2(x_offset, y_offset)
+		viewport_container.card_json = card_path
 	
 	# Create and format the card viewports
-	var viewport: SubViewport = SubViewport.new()
+	viewport = SubViewport.new()
 	viewport.size = card_resolution
 	viewport.transparent_bg = true
 	
@@ -81,16 +84,22 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 				%CardContainer.add_child(card_row_container)
 	
 	# Setup hierarchy for all the containers
-	card_row_container.add_child(viewport_container)
-	viewport_container.add_child(viewport)
-	viewport.add_child(card_inst)
+	if Global.set_or_default(card, "Type", "Creature") == "Team Captain":
+		viewport_container.add_child(viewport)
+		viewport.add_child(card_inst)
+		card_inst.visible = false
+	else:
+		card_row_container.add_child(viewport_container)
+		viewport_container.add_child(viewport)
+		viewport.add_child(card_inst)
 	
 	# Format the card instance
+	card_inst.card_json_path = card_path
 	card_inst.change_name(Global.set_or_default(card, "Name", ""))
 	card_inst.change_traits(Global.set_or_default(card, "Traits", ""))
 	card_inst.change_type(Global.set_or_default(card, "Type", "Creature"))
-	card_inst.change_power(str(int(Global.set_or_default(card, "Power", 0))))
-	card_inst.change_health(str(int(Global.set_or_default(card, "Health", 0))))
+	card_inst.change_power(int(Global.set_or_default(card, "Power", 0)))
+	card_inst.change_health(int(Global.set_or_default(card, "Health", 0)))
 	card_inst.change_abilities(Global.set_or_default(card, "Abilities", ""))
 	card_inst.change_art(art_file, Vector2(Global.set_or_default(card, "ArtXOffset", 0),Global.set_or_default(card, "ArtYOffset", 0)), Global.set_or_default(card, "ArtScale", 1.0))
 	card_inst.change_font_size(Global.set_or_default(card, "FontSize", 32.0))
@@ -101,20 +110,24 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 		card_inst.change_tribute(str(int(Global.set_or_default(card, "Tribute", 1))))
 	card_inst.change_guids(Global.set_or_default(card, "Guilds", [true, true, true, true, true]))
 	
-	if Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [true, false, false, false, false]:
-		loaded_ardor_cards += 1
-	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, true, false, false, false]:
-		loaded_spark_cards += 1
-	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, true, false, false]:
-		loaded_steam_cards += 1
-	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, true, false]:
-		loaded_root_cards += 1
-	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, true]:
-		loaded_grave_cards += 1
-	elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, false]:
-		loaded_guildless_cards += 1
-	else:
-		loaded_multi_cards += 1
+	# Update loaded cards if it isn't a team captain
+	if Global.set_or_default(card, "Type", "Creature") != "Team Captain":
+		if Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [true, false, false, false, false]:
+			loaded_ardor_cards += 1
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, true, false, false, false]:
+			loaded_spark_cards += 1
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, true, false, false]:
+			loaded_steam_cards += 1
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, true, false]:
+			loaded_root_cards += 1
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, true]:
+			loaded_grave_cards += 1
+		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, false, false, false, false]:
+			loaded_guildless_cards += 1
+		else:
+			loaded_multi_cards += 1
+			
+		loaded_cards += 1
 
 
 func clear_cards() -> void:
@@ -139,7 +152,6 @@ func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
 	for i in paths.size():
 		saved_card = Global.parse_json(paths[i])
 		create_card(paths[i], saved_card, i, cards_per_row, true)
-		loaded_cards += 1
 
 
 func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> void:
@@ -173,6 +185,7 @@ func _on_reload_button_pressed() -> void:
 func _on_timer_timeout() -> void:
 	%LoadedCardsLabel.text = (
 		"Loaded " + str(loaded_cards) + " cards" + "\n"
+		+ "* Doesn't include Team Captains\n"
 		+ "\n"
 		+ "Loaded " + str(loaded_ardor_cards) + " Ardor cards" + "\n"
 		+ "Loaded " + str(loaded_spark_cards) + " Spark cards" + "\n"

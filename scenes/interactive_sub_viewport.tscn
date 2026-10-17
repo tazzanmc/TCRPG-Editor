@@ -9,7 +9,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_84dgc")
-card_json = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1327959359]
 
@@ -24,16 +23,19 @@ content_scale_size = Vector2i(380, 320)
 content_scale_aspect = 4
 theme_override_font_sizes/font_size = 28
 theme_override_font_sizes/font_separator_size = 32
-item_count = 3
+item_count = 4
 item_0/text = "Card Options"
 item_0/id = 0
 item_0/separator = true
-item_1/text = "Edit"
+item_1/text = "Flip"
 item_1/checkable = 2
-item_1/id = 1
-item_2/text = "Cancel"
+item_1/id = 3
+item_2/text = "Edit"
 item_2/checkable = 2
-item_2/id = 2
+item_2/id = 1
+item_3/text = "Cancel"
+item_3/checkable = 2
+item_3/id = 2
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
