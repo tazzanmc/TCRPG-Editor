@@ -1,0 +1,519 @@
+[gd_scene format=3 uid="uid://ychi0j7404i6"]
+
+[ext_resource type="Script" uid="uid://id2q0cmsv437" path="res://scripts/card_editor.gd" id="1_7tx44"]
+[ext_resource type="PackedScene" uid="uid://dxdb3bm3kixbg" path="res://scenes/card.tscn" id="2_wwlnx"]
+[ext_resource type="FontFile" uid="uid://bw8b25ge2nc10" path="res://assets/fonts/Beleren2016-Bold.ttf" id="3_w8iyt"]
+[ext_resource type="Theme" uid="uid://b7owq4kcwu0of" path="res://assets/themes/text_theme.tres" id="4_bldne"]
+[ext_resource type="Texture2D" uid="uid://d3fbg6b0phi1t" path="res://assets/textures/ardor.png" id="5_5dqky"]
+[ext_resource type="Texture2D" uid="uid://cd2d1p0ddyiu7" path="res://assets/textures/spark.png" id="6_mvoge"]
+[ext_resource type="Texture2D" uid="uid://lwjpht0jxte4" path="res://assets/textures/steam.png" id="7_1nxwk"]
+[ext_resource type="Texture2D" uid="uid://bdeqg5cosvaag" path="res://assets/textures/root.png" id="8_ebnpt"]
+[ext_resource type="Texture2D" uid="uid://dhst2o8kdg2l1" path="res://assets/textures/grave.png" id="9_no8np"]
+[ext_resource type="FontFile" uid="uid://crdkqqpk6wfa6" path="res://assets/fonts/CAMBRIAB.TTF" id="11_qb51f"]
+[ext_resource type="FontFile" uid="uid://ckcx7h4aqo7st" path="res://assets/fonts/CAMBRIAI.TTF" id="12_wvolk"]
+[ext_resource type="Script" uid="uid://coxl6ud1b66nv" path="res://scripts/screen_shotter.gd" id="13_62ghy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o5qli"]
+font = ExtResource("3_w8iyt")
+font_size = 32
+
+[node name="CardEditor" type="Control" unique_id=1596647701]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7tx44")
+card_scene = ExtResource("2_wwlnx")
+
+[node name="UIContainer" type="HBoxContainer" parent="." unique_id=735351316]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UIContainer" unique_id=305390186]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardCreatorContainer" type="VBoxContainer" parent="UIContainer" unique_id=2140912293]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="UIContainer/CardCreatorContainer" unique_id=1027818521]
+layout_mode = 2
+text = "TCRPG Card Creator"
+label_settings = SubResource("LabelSettings_o5qli")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=746731507]
+layout_mode = 2
+
+[node name="NameFieldContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/HBoxContainer2" unique_id=264301057]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="UIContainer/CardCreatorContainer/HBoxContainer2/NameFieldContainer" unique_id=973786205]
+layout_mode = 2
+text = "Name: "
+
+[node name="NameField" type="LineEdit" parent="UIContainer/CardCreatorContainer/HBoxContainer2/NameFieldContainer" unique_id=684090160]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+placeholder_text = "Name, Title"
+caret_blink = true
+
+[node name="NameWidthNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/HBoxContainer2/NameFieldContainer" unique_id=586845434]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_bldne")
+max_value = 20.0
+step = 0.1
+value = 10.0
+allow_greater = true
+
+[node name="TraitsFieldContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1487013209]
+layout_mode = 2
+
+[node name="TraitsLabel" type="Label" parent="UIContainer/CardCreatorContainer/TraitsFieldContainer" unique_id=1033929368]
+layout_mode = 2
+text = "Traits: "
+
+[node name="TraitsField" type="LineEdit" parent="UIContainer/CardCreatorContainer/TraitsFieldContainer" unique_id=1175933150]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+placeholder_text = "Trait 1, Trait 2, etc."
+caret_blink = true
+
+[node name="TypeContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=6740388]
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="UIContainer/CardCreatorContainer/TypeContainer" unique_id=827589263]
+layout_mode = 2
+text = "Type: "
+
+[node name="TypeOption" type="OptionButton" parent="UIContainer/CardCreatorContainer/TypeContainer" unique_id=595088957]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+selected = 0
+item_count = 7
+popup/item_0/text = "Creature"
+popup/item_0/id = 0
+popup/item_1/text = "Team Captain"
+popup/item_1/id = 5
+popup/item_2/text = "Object"
+popup/item_2/id = 1
+popup/item_3/text = "Action"
+popup/item_3/id = 2
+popup/item_4/text = "Setting"
+popup/item_4/id = 3
+popup/item_5/text = "Tribute"
+popup/item_5/id = 4
+popup/item_6/text = "Curse"
+popup/item_6/id = 6
+
+[node name="CostContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=630993387]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="UIContainer/CardCreatorContainer/CostContainer" unique_id=89686479]
+layout_mode = 2
+text = "Cost = "
+
+[node name="CostNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/CostContainer" unique_id=677413109]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+
+[node name="XLabel" type="Label" parent="UIContainer/CardCreatorContainer/CostContainer" unique_id=174125423]
+layout_mode = 2
+text = "X:"
+
+[node name="XCheckBox" type="CheckBox" parent="UIContainer/CardCreatorContainer/CostContainer" unique_id=901622660]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GuildContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=199383180]
+layout_mode = 2
+
+[node name="GuildSelect" type="FoldableContainer" parent="UIContainer/CardCreatorContainer/GuildContainer" unique_id=1416536882]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+folded = true
+title = "Guilds"
+
+[node name="GuildContainer" type="VBoxContainer" parent="UIContainer/CardCreatorContainer/GuildContainer/GuildSelect" unique_id=475373822]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="ArdorCheck" type="CheckBox" parent="UIContainer/CardCreatorContainer/GuildContainer/GuildSelect/GuildContainer" unique_id=721212306]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ardor"
+icon = ExtResource("5_5dqky")
+expand_icon = true
+
+[node name="SparkCheck" type="CheckBox" parent="UIContainer/CardCreatorContainer/GuildContainer/GuildSelect/GuildContainer" unique_id=1217636697]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spark"
+icon = ExtResource("6_mvoge")
+expand_icon = true
+
+[node name="SteamCheck" type="CheckBox" parent="UIContainer/CardCreatorContainer/GuildContainer/GuildSelect/GuildContainer" unique_id=2023984793]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Steam"
+icon = ExtResource("7_1nxwk")
+expand_icon = true
+
+[node name="RootCheck" type="CheckBox" parent="UIContainer/CardCreatorContainer/GuildContainer/GuildSelect/GuildContainer" unique_id=683772814]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Root"
+icon = ExtResource("8_ebnpt")
+expand_icon = true
+
+[node name="GraveCheck" type="CheckBox" parent="UIContainer/CardCreatorContainer/GuildContainer/GuildSelect/GuildContainer" unique_id=645053130]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Grave"
+icon = ExtResource("9_no8np")
+expand_icon = true
+
+[node name="PowerHealthContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1475441907]
+layout_mode = 2
+
+[node name="PowerLabel" type="Label" parent="UIContainer/CardCreatorContainer/PowerHealthContainer" unique_id=38201423]
+layout_mode = 2
+text = "Power = "
+
+[node name="PowerNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/PowerHealthContainer" unique_id=1199507444]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+
+[node name="HealthLabel" type="Label" parent="UIContainer/CardCreatorContainer/PowerHealthContainer" unique_id=974997339]
+layout_mode = 2
+text = "Health = "
+
+[node name="HealthNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/PowerHealthContainer" unique_id=866335853]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+
+[node name="AbilitiesContainer" type="VBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1337682955]
+layout_mode = 2
+
+[node name="AbilitiesLabel" type="Label" parent="UIContainer/CardCreatorContainer/AbilitiesContainer" unique_id=10036474]
+layout_mode = 2
+text = "Abilities: "
+
+[node name="AbilitiesField" type="TextEdit" parent="UIContainer/CardCreatorContainer/AbilitiesContainer" unique_id=49817304]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("4_bldne")
+placeholder_text = "[b]Ability:[/b] Stuff
+[img height=1em]res://assets/textures/ardor.png[/img]"
+wrap_mode = 1
+caret_blink = true
+
+[node name="FontSizeContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/AbilitiesContainer" unique_id=966889113]
+layout_mode = 2
+
+[node name="FontSizeLabel" type="Label" parent="UIContainer/CardCreatorContainer/AbilitiesContainer/FontSizeContainer" unique_id=796263718]
+layout_mode = 2
+text = "Font Size = "
+
+[node name="FontSizeNumber" type="SpinBox" parent="UIContainer/CardCreatorContainer/AbilitiesContainer/FontSizeContainer" unique_id=1158062492]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+max_value = 256.0
+value = 32.0
+allow_greater = true
+
+[node name="HSeparator3" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1444971541]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="ArtContainer" type="VBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=711960796]
+layout_mode = 2
+
+[node name="ArtButton" type="Button" parent="UIContainer/CardCreatorContainer/ArtContainer" unique_id=425375645]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upload Art"
+
+[node name="ArtFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/ArtContainer/ArtButton" unique_id=576640541]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+ok_button_text = "Upload"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.webp")
+use_native_dialog = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/ArtContainer" unique_id=1077152396]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer" unique_id=1724419121]
+layout_mode = 2
+text = "X Offset:"
+
+[node name="XOffsetSlider" type="HSlider" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer" unique_id=459405639]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+exp_edit = true
+rounded = true
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="XOffsetLabel" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer" unique_id=519637232]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "[ X ]"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/ArtContainer" unique_id=186257471]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer2" unique_id=475726855]
+layout_mode = 2
+text = "Y Offset:"
+
+[node name="YOffsetSlider" type="HSlider" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer2" unique_id=68102371]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+exp_edit = true
+rounded = true
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="YOffsetLabel" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer2" unique_id=429594465]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "[ Y ]"
+horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/ArtContainer" unique_id=105095093]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer3" unique_id=256017937]
+layout_mode = 2
+text = "     Scale:"
+
+[node name="ScaleSlider" type="HSlider" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer3" unique_id=977022497]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.5
+max_value = 5.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="ScaleLabel" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/HBoxContainer3" unique_id=2038954201]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "[ S ]"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=2031582243]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="CreateButton" type="Button" parent="UIContainer/CardCreatorContainer" unique_id=816793697]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Create!"
+
+[node name="SaveButton" type="Button" parent="UIContainer/CardCreatorContainer" unique_id=933301860]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save as Image"
+
+[node name="SaveFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/SaveButton" unique_id=89710558]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Save"
+file_mode = 2
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.png")
+use_native_dialog = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=1266610375]
+layout_mode = 2
+
+[node name="ImportButton" type="Button" parent="UIContainer/CardCreatorContainer/HBoxContainer" unique_id=964289607]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import"
+
+[node name="ImportFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton" unique_id=81559981]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+ok_button_text = "Import"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.json")
+use_native_dialog = true
+
+[node name="ExportButton" type="Button" parent="UIContainer/CardCreatorContainer/HBoxContainer" unique_id=1267076949]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export"
+
+[node name="ExportFileDialog" type="FileDialog" parent="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton" unique_id=1060954385]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Export"
+file_mode = 2
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.json")
+use_native_dialog = true
+
+[node name="HSeparator4" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1405191546]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="CardViewerButton" type="Button" parent="UIContainer/CardCreatorContainer" unique_id=1392082911]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bulk Viewer"
+
+[node name="HSeparator2" type="HSeparator" parent="UIContainer/CardCreatorContainer" unique_id=1144939141]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Watermark" type="VBoxContainer" parent="UIContainer/CardCreatorContainer" unique_id=680651597]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UIContainer/CardCreatorContainer/Watermark" unique_id=886860130]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_qb51f")
+theme_override_font_sizes/font_size = 20
+text = "TCRPG Editor : Build 6"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UIContainer/CardCreatorContainer/Watermark" unique_id=1618461434]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_wvolk")
+text = "tazzan"
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="UIContainer" unique_id=1200565862]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UIContainer" unique_id=860967775]
+custom_maximum_size = Vector2(762, 1080)
+layout_mode = 2
+
+[node name="CardViewport" type="SubViewport" parent="UIContainer/SubViewportContainer" unique_id=1006069490]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(762, 1080)
+render_target_update_mode = 4
+
+[node name="Screenshotter" type="Node2D" parent="UIContainer/SubViewportContainer/CardViewport" unique_id=921259535]
+unique_name_in_owner = true
+script = ExtResource("13_62ghy")
+upscale = false
+scaleFactor = 2
+metadata/_custom_type_script = "uid://coxl6ud1b66nv"
+
+[node name="VSeparator3" type="VSeparator" parent="UIContainer" unique_id=1212703083]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Guide Panel" type="VBoxContainer" parent="UIContainer" unique_id=363976299]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="UIContainer/Guide Panel" unique_id=549814734]
+layout_mode = 2
+text = "Text Formatting Guide:
+[b]Bold text[/b]
+[i]Italics text[/i]
+
+Icons:
+{a} = Ardor
+{s} = Spark
+{t} = Steam
+{r} = Root
+{g} = Grave
+{0}-{9} = Tribute 0-9"
+vertical_alignment = 1
+
+[node name="VSeparator4" type="VSeparator" parent="UIContainer" unique_id=380950566]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Timer" type="Timer" parent="." unique_id=1713745491]
+wait_time = 0.1
+autostart = true
+
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton" to="." method="_on_art_button_pressed"]
+[connection signal="file_selected" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton/ArtFileDialog" to="." method="_on_art_file_dialog_file_selected"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="dir_selected" from="UIContainer/CardCreatorContainer/SaveButton/SaveFileDialog" to="." method="_on_save_file_dialog_dir_selected"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton" to="." method="_on_import_button_pressed"]
+[connection signal="file_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ImportButton/ImportFileDialog" to="." method="_on_import_file_dialog_file_selected"]
+[connection signal="pressed" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton" to="." method="_on_export_button_pressed"]
+[connection signal="dir_selected" from="UIContainer/CardCreatorContainer/HBoxContainer/ExportButton/ExportFileDialog" to="." method="_on_export_file_dialog_dir_selected"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

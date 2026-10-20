@@ -20,18 +20,40 @@ var viewport_container: SubViewportContainer
 var viewport: SubViewport
 @export var card_resolution: Vector2 = Vector2(762.0, 1080.0)
 
+@export var camera: Camera2D
+
 @onready var art_file : ImageTexture = ImageTexture.create_from_image(Image.load_from_file(art_path))
 @onready var saved_card: Dictionary = Global.parse_json("res://assets/default_card.json")
 @onready var card_row_container: HBoxContainer = %CardRowContainer
 
+var first_open : bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%CardViewerFileDialog.popup_centered_clamped()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+func hide_scene() -> void:
+	%CardViewerCanvas.visible = false
+	visible = false
+
+
+func unhide_scene() -> void:
+	%CardViewerCanvas.visible = true
+	visible = true
+	
+	if first_open:
+		%CardViewerFileDialog.popup_centered_clamped()
+		first_open = false
+	
+	camera.offset = Vector2(0,0)
+	camera.zoom = Vector2(0.4,0.4)
+	camera.position = Vector2(2350.0, 1307.0)
 
 
 func create_card(card_path: String, card: Dictionary = saved_card, card_it: int = 0, cards_per_row: int = 0, sorted: bool = false, x_offset: float = 0.0, y_offset: float = 0.0) -> void:
@@ -159,17 +181,9 @@ func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> voi
 	loaded_card_paths = paths
 	
 	if paths.is_empty():
-		go_to_main_menu()
+		pass
 	else:
 		load_cards(paths, cards_per_row)
-
-
-func _on_card_viewer_file_dialog_canceled() -> void:
-	go_to_main_menu()
-
-
-func go_to_main_menu() -> void:
-	get_tree().change_scene_to_file(main_scene)
 
 
 func _on_new_button_pressed() -> void:

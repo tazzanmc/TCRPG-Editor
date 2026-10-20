@@ -44,7 +44,7 @@ func save_json(data_to_send: Variant, path: String) -> void:
 	file_access.close()
 
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE:
 			get_tree().quit()

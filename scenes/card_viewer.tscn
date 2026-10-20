@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://iagfxcbcvcjc" path="res://scripts/card_viewer.gd" id="1_00mjh"]
 [ext_resource type="PackedScene" uid="uid://dxdb3bm3kixbg" path="res://scenes/card.tscn" id="2_vsdau"]
 [ext_resource type="Script" uid="uid://ln1mupct4e7m" path="res://scripts/ui_container.gd" id="3_2v73q"]
-[ext_resource type="Script" uid="uid://dgdvuigkibr18" path="res://scripts/change_scene_button.gd" id="4_3bfca"]
 [ext_resource type="PackedScene" uid="uid://ruyvlinwjnl6" path="res://scenes/interactive_sub_viewport.tscn" id="4_sbsbx"]
 
 [node name="CardViewer" type="Control" unique_id=2074358348]
@@ -16,20 +15,6 @@ grow_vertical = 2
 script = ExtResource("1_00mjh")
 card_scene = ExtResource("2_vsdau")
 interactive_sub_viewport = ExtResource("4_sbsbx")
-
-[node name="BGContainer" type="PanelContainer" parent="." unique_id=60225002]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.9990741
-scale = Vector2(15, 15)
-pivot_offset_ratio = Vector2(0.5, 0.5)
-metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect" type="ColorRect" parent="BGContainer" unique_id=944935052]
-layout_mode = 2
-color = Color(0.14396301, 0.18585241, 0.18855828, 1)
 
 [node name="CardViewerFileDialog" type="FileDialog" parent="." unique_id=685023310]
 unique_name_in_owner = true
@@ -52,7 +37,6 @@ offset_bottom = 40.0
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("3_2v73q")
-zoom = 0.05
 
 [node name="CardRowContainer" type="HBoxContainer" parent="UIContainer/CardContainer" unique_id=364967378]
 unique_name_in_owner = true
@@ -86,37 +70,31 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=371186126]
+[node name="CardViewerCanvas" type="CanvasLayer" parent="." unique_id=697156484]
 unique_name_in_owner = true
-position = Vector2(2350, 1307)
-zoom = Vector2(0.4, 0.4)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=697156484]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=630964181]
+[node name="VBoxContainer" type="VBoxContainer" parent="CardViewerCanvas" unique_id=630964181]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 120.0
 offset_bottom = 100.0
 
-[node name="MainButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1440593962]
+[node name="MainButton" type="Button" parent="CardViewerCanvas/VBoxContainer" unique_id=1440593962]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Back to Creator"
-script = ExtResource("4_3bfca")
-file_path = "res://scenes/main.tscn"
 
-[node name="NewButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1472187080]
+[node name="NewButton" type="Button" parent="CardViewerCanvas/VBoxContainer" unique_id=1472187080]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Import New Cards"
 
-[node name="ReloadButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=385308865]
+[node name="ReloadButton" type="Button" parent="CardViewerCanvas/VBoxContainer" unique_id=385308865]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reload Cards"
 
-[node name="LoadedCardsLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1010290391]
+[node name="LoadedCardsLabel" type="Label" parent="CardViewerCanvas/VBoxContainer" unique_id=1010290391]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
@@ -128,7 +106,6 @@ autostart = true
 
 [connection signal="canceled" from="CardViewerFileDialog" to="." method="_on_card_viewer_file_dialog_canceled"]
 [connection signal="files_selected" from="CardViewerFileDialog" to="." method="_on_card_viewer_file_dialog_files_selected"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/MainButton" to="CanvasLayer/VBoxContainer/MainButton" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/NewButton" to="." method="_on_new_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="CardViewerCanvas/VBoxContainer/NewButton" to="." method="_on_new_button_pressed"]
+[connection signal="pressed" from="CardViewerCanvas/VBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

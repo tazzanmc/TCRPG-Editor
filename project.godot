@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TCRPG-Editor"
-run/main_scene="uid://ychi0j7404i6"
+run/main_scene="uid://c8ghu51gndgud"
 config/features=PackedStringArray("4.7")
 boot_splash/stretch_mode=0
 boot_splash/image="uid://gxupaviulouc"

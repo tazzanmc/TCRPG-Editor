@@ -4,6 +4,8 @@ var art_path : String = "res://assets/textures/art_placeholder.png"
 
 @export var card_scene: PackedScene
 
+@export var camera: Camera2D
+
 @onready var card_inst : Card = card_scene.instantiate()
 @onready var art_file : ImageTexture = ImageTexture.create_from_image(Image.load_from_file(art_path))
 @onready var saved_card: Dictionary = Global.parse_json(Global.saved_json)
@@ -16,6 +18,17 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+func hide_scene() -> void:
+	visible = false
+
+
+func unhide_scene() -> void:
+	visible = true
+	camera.offset = Vector2(0,0)
+	camera.zoom = Vector2(1.0,1.0)
+	camera.position = Vector2(960.0, 540.0)
 
 
 func update_text() -> void:
