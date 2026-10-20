@@ -1,7 +1,5 @@
 extends Control
 
-const main_scene: String = "res://scenes/main.tscn"
-
 @export var card_json : String = "res://assets/default_card.json"
 
 
@@ -28,7 +26,7 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 	# Edit button
 	if id == 1:
 		Global.saved_json = card_json
-		get_tree().change_scene_to_file(main_scene)
+		Global.emit_global_signal("editor")
 	
 	# Flip button
 	if id == 3:

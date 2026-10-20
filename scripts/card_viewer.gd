@@ -22,6 +22,10 @@ var viewport: SubViewport
 
 @export var camera: Camera2D
 
+var saved_camera_offset : Vector2
+var saved_camera_zoom : Vector2
+var saved_camera_position : Vector2
+
 @onready var art_file : ImageTexture = ImageTexture.create_from_image(Image.load_from_file(art_path))
 @onready var saved_card: Dictionary = Global.parse_json("res://assets/default_card.json")
 @onready var card_row_container: HBoxContainer = %CardRowContainer
@@ -30,7 +34,9 @@ var first_open : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	saved_camera_offset = camera.offset
+	saved_camera_zoom = camera.zoom
+	saved_camera_position = camera.position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,12 +44,16 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func hide_scene() -> void:
+func hide_scene(_from_signal: bool = false) -> void:
 	%CardViewerCanvas.visible = false
 	visible = false
+	
+	saved_camera_offset = camera.offset
+	saved_camera_zoom = camera.zoom
+	saved_camera_position = camera.position
 
 
-func unhide_scene() -> void:
+func unhide_scene(_from_signal: bool = false) -> void:
 	%CardViewerCanvas.visible = true
 	visible = true
 	
@@ -51,9 +61,9 @@ func unhide_scene() -> void:
 		%CardViewerFileDialog.popup_centered_clamped()
 		first_open = false
 	
-	camera.offset = Vector2(0,0)
-	camera.zoom = Vector2(0.4,0.4)
-	camera.position = Vector2(2350.0, 1307.0)
+	camera.offset = saved_camera_offset
+	camera.zoom = saved_camera_zoom
+	camera.position = saved_camera_position
 
 
 func create_card(card_path: String, card: Dictionary = saved_card, card_it: int = 0, cards_per_row: int = 0, sorted: bool = false, x_offset: float = 0.0, y_offset: float = 0.0) -> void:

@@ -8,6 +8,7 @@ var cam_control: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.global_signal.connect(swapper)
 	swap_to_editor()
 
 
@@ -21,13 +22,20 @@ func _unhandled_input(event: InputEvent):
 				%Camera2D.zoom -= Vector2(zoom, zoom)
 
 
-func swap_to_viewer() -> void:
+func swapper(to: String) -> void:
+	if to == "editor":
+		swap_to_editor(true)
+	elif to == "viewer":
+		swap_to_viewer(true)
+
+
+func swap_to_viewer(from_signal: bool = false) -> void:
 	cam_control = true
-	%CardViewer.unhide_scene()
-	%CardEditor.hide_scene()
+	%CardEditor.hide_scene(from_signal)
+	%CardViewer.unhide_scene(from_signal)
 
 
-func swap_to_editor() -> void:
+func swap_to_editor(from_signal: bool = false) -> void:
 	cam_control = false
-	%CardViewer.hide_scene()
-	%CardEditor.unhide_scene()
+	%CardViewer.hide_scene(from_signal)
+	%CardEditor.unhide_scene(from_signal)

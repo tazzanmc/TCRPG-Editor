@@ -4,7 +4,14 @@ class_name G
 const default_card : String = "res://assets/default_card.json"
 const default_art : String = "res://assets/textures/art_placeholder.png"
 
+signal global_signal(msg: String)
+
 var saved_json : String = "res://assets/default_card.json"
+
+
+func emit_global_signal(msg: String) -> void:
+	emit_signal("global_signal", msg)
+
 
 func encode_json_data(value, full_objects = false):
 	return JSON.stringify(JSON.from_native(value, full_objects))

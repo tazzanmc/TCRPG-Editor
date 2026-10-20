@@ -504,7 +504,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Timer" type="Timer" parent="." unique_id=1713745491]
-wait_time = 0.1
 autostart = true
 
 [connection signal="pressed" from="UIContainer/CardCreatorContainer/ArtContainer/ArtButton" to="." method="_on_art_button_pressed"]

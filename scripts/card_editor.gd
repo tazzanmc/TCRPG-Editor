@@ -20,15 +20,19 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func hide_scene() -> void:
+func hide_scene(_from_signal: bool = false) -> void:
 	visible = false
 
 
-func unhide_scene() -> void:
+func unhide_scene(from_signal: bool = false) -> void:
 	visible = true
 	camera.offset = Vector2(0,0)
 	camera.zoom = Vector2(1.0,1.0)
 	camera.position = Vector2(960.0, 540.0)
+	
+	if from_signal:
+		saved_card = Global.parse_json(Global.saved_json)
+		load_card()
 
 
 func update_text() -> void:
