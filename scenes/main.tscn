@@ -13,9 +13,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sugp2")
 
-[node name="BGContainer" type="PanelContainer" parent="." unique_id=269154268]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=733754673]
+layer = -99
+
+[node name="BGContainer" type="PanelContainer" parent="CanvasLayer" unique_id=269154268]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.9990741
@@ -23,7 +25,7 @@ scale = Vector2(15, 15)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="BGContainer" unique_id=23811680]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BGContainer" unique_id=23811680]
 layout_mode = 2
 color = Color(0.14396301, 0.18585241, 0.18855828, 1)
 

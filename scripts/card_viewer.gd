@@ -142,8 +142,8 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 		card_inst.change_tribute(str(int(Global.set_or_default(card, "Tribute", 1))))
 	card_inst.change_guids(Global.set_or_default(card, "Guilds", [true, true, true, true, true]))
 	
-	# Update loaded cards if it isn't a team captain
-	if Global.set_or_default(card, "Type", "Creature") != "Team Captain":
+	# Update loaded cards if it isn't a team captain or curse
+	if Global.set_or_default(card, "Type", "Creature") != "Team Captain" and Global.set_or_default(card, "Type", "Creature") != "Curse":
 		if Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [true, false, false, false, false]:
 			loaded_ardor_cards += 1
 		elif Global.set_or_default(card, "Guilds", [true, true, true, true, true]) == [false, true, false, false, false]:
@@ -180,8 +180,9 @@ func clear_cards() -> void:
 
 
 func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
-	clear_cards()
 	for i in paths.size():
+		# Very minor wait to prevent freezing
+		await get_tree().create_timer(0.001).timeout
 		saved_card = Global.parse_json(paths[i])
 		create_card(paths[i], saved_card, i, cards_per_row, true)
 
@@ -209,7 +210,6 @@ func _on_reload_button_pressed() -> void:
 func _on_timer_timeout() -> void:
 	%LoadedCardsLabel.text = (
 		"Loaded " + str(loaded_cards) + " cards" + "\n"
-		+ "* Doesn't include Team Captains\n"
 		+ "\n"
 		+ "Loaded " + str(loaded_ardor_cards) + " Ardor cards" + "\n"
 		+ "Loaded " + str(loaded_spark_cards) + " Spark cards" + "\n"
@@ -218,4 +218,6 @@ func _on_timer_timeout() -> void:
 		+ "Loaded " + str(loaded_grave_cards) + " Grave cards" + "\n"
 		+ "Loaded " + str(loaded_multi_cards) + " Multi-guild cards" + "\n"
 		+ "Loaded " + str(loaded_guildless_cards) + " Guildless cards" + "\n"
+		+ "\n"
+		+ "* Doesn't include Team Captains or Curses\n"
 		)

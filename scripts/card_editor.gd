@@ -10,8 +10,11 @@ var art_path : String = "res://assets/textures/art_placeholder.png"
 @onready var art_file : ImageTexture = ImageTexture.create_from_image(Image.load_from_file(art_path))
 @onready var saved_card: Dictionary = Global.parse_json(Global.saved_json)
 
+var saved_camera_position : Vector2
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	saved_camera_position = camera.position
 	load_card()
 
 
@@ -28,7 +31,7 @@ func unhide_scene(from_signal: bool = false) -> void:
 	visible = true
 	camera.offset = Vector2(0,0)
 	camera.zoom = Vector2(1.0,1.0)
-	camera.position = Vector2(960.0, 540.0)
+	camera.position = saved_camera_position
 	
 	if from_signal:
 		saved_card = Global.parse_json(Global.saved_json)

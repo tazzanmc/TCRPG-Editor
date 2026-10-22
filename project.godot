@@ -21,6 +21,10 @@ config/icon="uid://gxupaviulouc"
 
 Global="*uid://bewspign74isj"
 
+[debug]
+
+gdscript/main_scene="uid://ychi0j7404i6"
+
 [display]
 
 window/size/viewport_width=1920

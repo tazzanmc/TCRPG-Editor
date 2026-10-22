@@ -5,11 +5,33 @@ extends Control
 @export var max_zoom: float = 5.0
 
 var cam_control: bool = false
+var drag_start_mouse: Vector2
+var drag_start_cam: Vector2
+var is_dragging: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.global_signal.connect(swapper)
 	swap_to_editor()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	if cam_control:
+		# Set initial rotation, position, offset, and global is dragging on pickup
+		if Input.is_action_just_pressed("Pan"):
+			drag_start_mouse = get_viewport().get_mouse_position()
+			drag_start_cam = %Camera2D.position
+			is_dragging = true
+		# Move self with mouse drag
+		if Input.is_action_pressed("Pan"):
+			if is_dragging:
+				var mouse_delta : Vector2 = get_viewport().get_mouse_position() - drag_start_mouse
+				# Screen pixels cover fewer world units when zoomed in, so divide by zoom
+				%Camera2D.position = drag_start_cam - mouse_delta / %Camera2D.zoom
+		# Release Logic
+		elif Input.is_action_just_released("Pan"):
+			is_dragging = false
 
 
 func _unhandled_input(event: InputEvent):
