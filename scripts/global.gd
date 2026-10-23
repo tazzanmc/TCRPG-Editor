@@ -9,8 +9,8 @@ signal global_signal(msg: String)
 var saved_json : String = "res://assets/default_card.json"
 
 
-func emit_global_signal(msg: String) -> void:
-	emit_signal("global_signal", msg)
+func emit_global_signal(msg: String, args: Array = []) -> void:
+	emit_signal("global_signal", msg, args)
 
 
 func encode_json_data(value, full_objects = false):

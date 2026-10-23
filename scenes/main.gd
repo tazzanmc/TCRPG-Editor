@@ -44,15 +44,21 @@ func _unhandled_input(event: InputEvent):
 				%Camera2D.zoom -= Vector2(zoom, zoom)
 
 
-func signal_reader(to: String) -> void:
-	if to == "editor":
+func signal_reader(msg: String, args: Array = []) -> void:
+	if msg == "editor":
 		swap_to_editor(true)
-	elif to == "viewer":
+	elif msg == "viewer":
 		swap_to_viewer(true)
-	elif to == "cam_on":
+	elif msg == "cam_on":
 		cam_control = true
-	elif to == "cam_off":
+	elif msg == "cam_off":
 		cam_control = false
+	elif msg == "cam_zoom":
+		%Camera2D.zoom = Vector2(args[0], args[0])
+	elif msg == "cam_pos":
+		%Camera2D.position = Vector2(args[0], args[1])
+	elif msg == "cam_global_pos":
+		%Camera2D.global_position = Vector2(args[0], args[1])
 
 
 func swap_to_viewer(from_signal: bool = false) -> void:

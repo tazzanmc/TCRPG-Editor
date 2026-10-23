@@ -196,6 +196,7 @@ func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
 
 func bulk_save_cards(path: String) -> void:
 	Global.emit_global_signal("cam_off")
+	Global.emit_global_signal("cam_zoom", [0.1])
 	var saved_cards : int = 0
 	%BulkSavePanel.visible = true
 	%BulkSaveLabel.text = " Please Wait... "
@@ -243,6 +244,7 @@ func bulk_save_cards(path: String) -> void:
 					if cards[iiii].card_type == "Team Captain":
 						interactive_sub_viewports[ii].flip()
 					
+					Global.emit_global_signal("cam_global_pos", [interactive_sub_viewports[ii].global_position.x, interactive_sub_viewports[ii].global_position.y])
 					await get_tree().create_timer(0.001).timeout
 					screenshotters[iiii].TAKE_SCREENSHOT(cards[iiii].card_name + "_" + cards[iiii].card_type, path)
 					
