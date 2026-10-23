@@ -11,7 +11,7 @@ var is_dragging: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Global.global_signal.connect(swapper)
+	Global.global_signal.connect(signal_reader)
 	swap_to_editor()
 
 
@@ -44,11 +44,15 @@ func _unhandled_input(event: InputEvent):
 				%Camera2D.zoom -= Vector2(zoom, zoom)
 
 
-func swapper(to: String) -> void:
+func signal_reader(to: String) -> void:
 	if to == "editor":
 		swap_to_editor(true)
 	elif to == "viewer":
 		swap_to_viewer(true)
+	elif to == "cam_on":
+		cam_control = true
+	elif to == "cam_off":
+		cam_control = false
 
 
 func swap_to_viewer(from_signal: bool = false) -> void:

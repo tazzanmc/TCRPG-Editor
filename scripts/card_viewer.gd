@@ -195,6 +195,7 @@ func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
 
 
 func bulk_save_cards(path: String) -> void:
+	Global.emit_global_signal("cam_off")
 	var saved_cards : int = 0
 	%BulkSavePanel.visible = true
 	%BulkSaveLabel.text = " Please Wait... "
@@ -255,6 +256,7 @@ func bulk_save_cards(path: String) -> void:
 	%BulkSaveLabel.text = " Done bulk saving! "
 	await get_tree().create_timer(1.0).timeout
 	%BulkSavePanel.visible = false
+	Global.emit_global_signal("cam_on")
 
 
 func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> void:
