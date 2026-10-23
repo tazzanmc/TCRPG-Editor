@@ -66,8 +66,7 @@ func format_rich_text(old_text: String) -> String:
 	new_text = new_text.replace("{r}","[img height=1.2em]res://assets/textures/root_text.png[/img]")
 	new_text = new_text.replace("{s}","[img height=1.2em]res://assets/textures/spark_text.png[/img]")
 	new_text = new_text.replace("{t}","[img height=1.2em]res://assets/textures/steam_text.png[/img]")
-	
-	## Repeat for caps
+	# Repeat for caps
 	new_text = new_text.replace("{A}","[img height=1.2em]res://assets/textures/ardor_text.png[/img]")
 	new_text = new_text.replace("{G}","[img height=1.2em]res://assets/textures/grave_text.png[/img]")
 	new_text = new_text.replace("{R}","[img height=1.2em]res://assets/textures/root_text.png[/img]")
@@ -85,6 +84,8 @@ func format_rich_text(old_text: String) -> String:
 	new_text = new_text.replace("{7}","[img height=1.2em]res://assets/textures/generic_7.png[/img]")
 	new_text = new_text.replace("{8}","[img height=1.2em]res://assets/textures/generic_8.png[/img]")
 	new_text = new_text.replace("{9}","[img height=1.2em]res://assets/textures/generic_9.png[/img]")
+	new_text = new_text.replace("{x}","[img height=1.2em]res://assets/textures/generic_x.png[/img]")
+	new_text = new_text.replace("{X}","[img height=1.2em]res://assets/textures/generic_x.png[/img]")
 	
 	return new_text
 
