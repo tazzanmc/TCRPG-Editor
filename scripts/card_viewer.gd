@@ -4,6 +4,7 @@ extends Control
 
 var art_path : String = "res://assets/textures/art_placeholder.png"
 var loaded_cards : int = 0
+var loaded_real_cards : int = 0
 var loaded_card_paths : PackedStringArray
 
 var loaded_ardor_cards : int = 0
@@ -125,6 +126,10 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 		viewport_container.add_child(viewport)
 		viewport.add_child(card_inst)
 	
+	# Setup screenshotter
+	var screenshotter : Screenshotter = Screenshotter.new()
+	viewport.add_child(screenshotter)
+	
 	# Format the card instance
 	card_inst.card_json_path = card_path
 	card_inst.change_name(Global.set_or_default(card, "Name", ""))
@@ -160,6 +165,8 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 			loaded_multi_cards += 1
 			
 		loaded_cards += 1
+	# Counts curses & team captains
+	loaded_real_cards += 1
 
 
 func clear_cards() -> void:
@@ -172,11 +179,11 @@ func clear_cards() -> void:
 	loaded_multi_cards = 0
 	loaded_guildless_cards = 0
 	
-	var container_children : Array = %CardContainer.get_children()
-	for i in range(container_children.size()):
-		var internal_children : Array = container_children[i].get_children()
-		for ii in range(internal_children.size()):
-			internal_children[ii].queue_free()
+	var rows : Array = %CardContainer.get_children()
+	for i in range(rows.size()):
+		var interactive_sub_viewports : Array = rows[i].get_children()
+		for ii in range(interactive_sub_viewports.size()):
+			interactive_sub_viewports[ii].queue_free()
 
 
 func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
@@ -185,6 +192,69 @@ func load_cards(paths: PackedStringArray, cards_per_row: int = 6) -> void:
 		await get_tree().create_timer(0.001).timeout
 		saved_card = Global.parse_json(paths[i])
 		create_card(paths[i], saved_card, i, cards_per_row, true)
+
+
+func bulk_save_cards(path: String) -> void:
+	var saved_cards : int = 0
+	%BulkSavePanel.visible = true
+	%BulkSaveLabel.text = " Please Wait... "
+	%BulkSaveCounter.text = " Saved " + str(saved_cards) + " / " + str(loaded_real_cards) + " Cards "
+	# Get all the rows
+	var rows : Array = %CardContainer.get_children()
+	print("Rows: ")
+	print(rows)
+	
+	for i in range(rows.size()):
+		# Get all the interactive sub viewports
+		var interactive_sub_viewports : Array = rows[i].get_children()
+		print("ISVs: ")
+		print(interactive_sub_viewports)
+		
+		for ii in range(interactive_sub_viewports.size()):
+			# Get all the sub viewports
+			var sub_viewports : Array
+			
+			for j in range(interactive_sub_viewports[ii].get_children().size()):
+				if interactive_sub_viewports[ii].get_children()[j] is SubViewport:
+					sub_viewports.append(interactive_sub_viewports[ii].get_children()[j])
+			
+			print("SVs: ")
+			print(sub_viewports)
+			
+			for iii in range(sub_viewports.size()):
+				# Get all the screenshotters and cards
+				var screenshotters : Array
+				var cards : Array
+				
+				for jj in range(sub_viewports[iii].get_children().size()):
+					if sub_viewports[iii].get_children()[jj] is Screenshotter:
+						screenshotters.append(sub_viewports[iii].get_children()[jj])
+					if sub_viewports[iii].get_children()[jj] is Card:
+						cards.append(sub_viewports[iii].get_children()[jj])
+				
+				print("Screenshotters: ")
+				print(screenshotters)
+				print("Cards: ")
+				print(cards)
+				
+				for iiii in range(screenshotters.size()):
+					# Flip the card if it's a team captain
+					if cards[iiii].card_type == "Team Captain":
+						interactive_sub_viewports[ii].flip()
+					
+					await get_tree().create_timer(0.001).timeout
+					screenshotters[iiii].TAKE_SCREENSHOT(cards[iiii].card_name + "_" + cards[iiii].card_type, path)
+					
+					# Flip it back
+					if cards[iiii].card_type == "Team Captain":
+						interactive_sub_viewports[ii].flip()
+					
+					saved_cards += 1
+					%BulkSaveCounter.text = " Saved " + str(saved_cards) + " / " + str(loaded_real_cards) + " Cards "
+	print("Done bulk saving!")
+	%BulkSaveLabel.text = " Done bulk saving! "
+	await get_tree().create_timer(1.0).timeout
+	%BulkSavePanel.visible = false
 
 
 func _on_card_viewer_file_dialog_files_selected(paths: PackedStringArray) -> void:
@@ -221,3 +291,12 @@ func _on_timer_timeout() -> void:
 		+ "\n"
 		+ "* Doesn't include Team Captains or Curses\n"
 		)
+
+
+func _on_bulk_save_file_dialog_dir_selected(path: String) -> void:
+	print("Bulk saving...")
+	bulk_save_cards(path)
+
+
+func _on_bulk_save_button_pressed() -> void:
+	%BulkSaveFileDialog.popup_centered_clamped()

@@ -30,22 +30,26 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 	
 	# Flip button
 	if id == 3:
-		# Get the cards from the child sub viewports
-		var children : Array = get_children()
-		var viewports : Array
-		for i in range(children.size()):
-			if children[i] is SubViewport:
-				viewports.append(children[i])
-		
-		var cards : Array
-		for i in range(viewports.size()):
-			cards.append(viewports[i].get_child(0))
-		
-		# Only flip if there's more than 1 card in this viewport
-		if cards.size() > 1:
-			for i in range(cards.size()):
-				if cards[i].visible == true:
-					cards[i].visible = false
-				else:
-					cards[i].visible = true
-					card_json = cards[i].card_json_path
+		flip()
+
+
+func flip() -> void:
+	# Get the cards from the child sub viewports
+	var children : Array = get_children()
+	var viewports : Array
+	for i in range(children.size()):
+		if children[i] is SubViewport:
+			viewports.append(children[i])
+	
+	var cards : Array
+	for i in range(viewports.size()):
+		cards.append(viewports[i].get_child(0))
+	
+	# Only flip if there's more than 1 card in this viewport
+	if cards.size() > 1:
+		for i in range(cards.size()):
+			if cards[i].visible == true:
+				cards[i].visible = false
+			else:
+				cards[i].visible = true
+				card_json = cards[i].card_json_path

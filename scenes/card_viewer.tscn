@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dxdb3bm3kixbg" path="res://scenes/card.tscn" id="2_vsdau"]
 [ext_resource type="Script" uid="uid://ln1mupct4e7m" path="res://scripts/ui_container.gd" id="3_2v73q"]
 [ext_resource type="PackedScene" uid="uid://ruyvlinwjnl6" path="res://scenes/interactive_sub_viewport.tscn" id="4_sbsbx"]
+[ext_resource type="FontFile" uid="uid://crdkqqpk6wfa6" path="res://assets/fonts/CAMBRIAB.TTF" id="5_3bfca"]
 
 [node name="CardViewer" type="Control" unique_id=2074358348]
 layout_mode = 3
@@ -94,11 +95,65 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Reload Cards"
 
+[node name="BulkSaveButton" type="Button" parent="CardViewerCanvas/VBoxContainer" unique_id=394562894]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bulk Save"
+
+[node name="BulkSaveFileDialog" type="FileDialog" parent="CardViewerCanvas/VBoxContainer/BulkSaveButton" unique_id=1997260203]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Save"
+file_mode = 2
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.png")
+use_native_dialog = true
+
 [node name="LoadedCardsLabel" type="Label" parent="CardViewerCanvas/VBoxContainer" unique_id=1010290391]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
 text = "Loaded 0 cards"
+
+[node name="BulkSavePanel" type="PanelContainer" parent="CardViewerCanvas" unique_id=726526695]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -10.0
+offset_right = 40.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardViewerCanvas/BulkSavePanel" unique_id=1202365477]
+layout_mode = 2
+
+[node name="BulkSaveLabel" type="Label" parent="CardViewerCanvas/BulkSavePanel/VBoxContainer" unique_id=1894401090]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+theme_override_fonts/font = ExtResource("5_3bfca")
+text = "Please Wait"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BulkSaveCounter" type="Label" parent="CardViewerCanvas/BulkSavePanel/VBoxContainer" unique_id=365662942]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+text = " Saved 0 / 0 Cards "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="." unique_id=1933991814]
 wait_time = 0.1
@@ -108,4 +163,6 @@ autostart = true
 [connection signal="files_selected" from="CardViewerFileDialog" to="." method="_on_card_viewer_file_dialog_files_selected"]
 [connection signal="pressed" from="CardViewerCanvas/VBoxContainer/NewButton" to="." method="_on_new_button_pressed"]
 [connection signal="pressed" from="CardViewerCanvas/VBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="CardViewerCanvas/VBoxContainer/BulkSaveButton" to="." method="_on_bulk_save_button_pressed"]
+[connection signal="dir_selected" from="CardViewerCanvas/VBoxContainer/BulkSaveButton/BulkSaveFileDialog" to="." method="_on_bulk_save_file_dialog_dir_selected"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
