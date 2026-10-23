@@ -299,4 +299,14 @@ func _on_bulk_save_file_dialog_dir_selected(path: String) -> void:
 
 
 func _on_bulk_save_button_pressed() -> void:
+	%WarningLabel.text = "Bulk saving will could take\nup to " + str(loaded_real_cards) + "mb of space!"
+	%BulkSaveWarningPanel.visible = true
+
+
+func _on_warning_yes_button_pressed() -> void:
+	%BulkSaveWarningPanel.visible = false
 	%BulkSaveFileDialog.popup_centered_clamped()
+
+
+func _on_warning_no_button_pressed() -> void:
+	%BulkSaveWarningPanel.visible = false

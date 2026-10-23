@@ -6,6 +6,38 @@
 [ext_resource type="PackedScene" uid="uid://ruyvlinwjnl6" path="res://scenes/interactive_sub_viewport.tscn" id="4_sbsbx"]
 [ext_resource type="FontFile" uid="uid://crdkqqpk6wfa6" path="res://assets/fonts/CAMBRIAB.TTF" id="5_3bfca"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxgw6"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bfca"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_m1mpe"]
+line_spacing = -1.05
+
 [node name="CardViewer" type="Control" unique_id=2074358348]
 layout_mode = 3
 anchors_preset = 15
@@ -134,6 +166,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_oxgw6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardViewerCanvas/BulkSavePanel" unique_id=1202365477]
 layout_mode = 2
@@ -155,6 +188,57 @@ text = " Saved 0 / 0 Cards "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BulkSaveWarningPanel" type="PanelContainer" parent="CardViewerCanvas" unique_id=1095505658]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -10.0
+offset_right = 40.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3bfca")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardViewerCanvas/BulkSaveWarningPanel" unique_id=645727223]
+layout_mode = 2
+
+[node name="WarningLabel" type="Label" parent="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer" unique_id=1024967608]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+text = "Bulk saving will could take
+up to Xmb of space!"
+label_settings = SubResource("LabelSettings_m1mpe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WarningContinue" type="Label" parent="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer" unique_id=1364586913]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+text = "Continue?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer" unique_id=45763467]
+layout_mode = 2
+
+[node name="WarningYesButton" type="Button" parent="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer/HBoxContainer" unique_id=1670092530]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes"
+
+[node name="WarningNoButton" type="Button" parent="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer/HBoxContainer" unique_id=1302218620]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
 [node name="Timer" type="Timer" parent="." unique_id=1933991814]
 wait_time = 0.1
 autostart = true
@@ -165,4 +249,6 @@ autostart = true
 [connection signal="pressed" from="CardViewerCanvas/VBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
 [connection signal="pressed" from="CardViewerCanvas/VBoxContainer/BulkSaveButton" to="." method="_on_bulk_save_button_pressed"]
 [connection signal="dir_selected" from="CardViewerCanvas/VBoxContainer/BulkSaveButton/BulkSaveFileDialog" to="." method="_on_bulk_save_file_dialog_dir_selected"]
+[connection signal="pressed" from="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer/HBoxContainer/WarningYesButton" to="." method="_on_warning_yes_button_pressed"]
+[connection signal="pressed" from="CardViewerCanvas/BulkSaveWarningPanel/VBoxContainer/HBoxContainer/WarningNoButton" to="." method="_on_warning_no_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
