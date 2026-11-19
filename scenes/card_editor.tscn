@@ -276,6 +276,22 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.webp")
 use_native_dialog = true
 
+[node name="ArtistFieldContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/ArtContainer" unique_id=570635482]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ArtistLabel" type="Label" parent="UIContainer/CardCreatorContainer/ArtContainer/ArtistFieldContainer" unique_id=1802880248]
+layout_mode = 2
+text = "Artist: "
+
+[node name="ArtistField" type="LineEdit" parent="UIContainer/CardCreatorContainer/ArtContainer/ArtistFieldContainer" unique_id=853136046]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_bldne")
+placeholder_text = "John Doe"
+caret_blink = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UIContainer/CardCreatorContainer/ArtContainer" unique_id=1077152396]
 layout_mode = 2
 

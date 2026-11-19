@@ -230,6 +230,30 @@ text = "Passive effects are just typed out normal like this.
 {A}{G}{R}{S}{T}{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}"
 autowrap_mode = 2
 
+[node name="ArtistContainer" type="PanelContainer" parent="Text" unique_id=176409206]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 968.0
+offset_right = 592.0
+offset_bottom = 1005.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m1mpe")
+
+[node name="ArtistLabel" type="RichTextLabel" parent="Text/ArtistContainer" unique_id=1617353269]
+unique_name_in_owner = true
+texture_filter = 4
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme = ExtResource("12_u8dfr")
+theme_override_colors/default_color = Color(0.5058824, 0.5019608, 0.5058824, 1)
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "[i]Artist: bleh"
+autowrap_mode = 2
+
 [node name="TypeContainer" type="CenterContainer" parent="Text" unique_id=1048980461]
 layout_mode = 0
 offset_left = 114.0

@@ -141,6 +141,7 @@ func create_card(card_path: String, card: Dictionary = saved_card, card_it: int 
 	card_inst.change_art(art_file, Vector2(Global.set_or_default(card, "ArtXOffset", 0),Global.set_or_default(card, "ArtYOffset", 0)), Global.set_or_default(card, "ArtScale", 1.0))
 	card_inst.change_font_size(Global.set_or_default(card, "FontSize", 32.0))
 	card_inst.change_name_width(Global.set_or_default(card, "NameWidth", 10.0))
+	card_inst.change_artist(Global.set_or_default(card, "Artist", ""))
 	if Global.set_or_default(card, "X", false):
 		card_inst.change_tribute("X")
 	else:

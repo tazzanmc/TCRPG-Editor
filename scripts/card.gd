@@ -11,6 +11,7 @@ class_name Card
 @export var card_abilities : String = ""
 @export var card_tribute : int = 0
 @export var card_guilds : Array = [true, true, true, true, true]
+@export var card_artist : String = "Artist"
 
 
 func _ready() -> void:
@@ -40,6 +41,7 @@ func update_card() -> void:
 	change_art(art_file, Vector2(Global.set_or_default(new_card, "ArtXOffset", 0),Global.set_or_default(new_card, "ArtYOffset", 0)), Global.set_or_default(new_card, "ArtScale", 1.0))
 	change_font_size(Global.set_or_default(new_card, "FontSize", 32.0))
 	change_name_width(Global.set_or_default(new_card, "NameWidth", 10.0))
+	change_artist(Global.set_or_default(new_card, "Artist", ""))
 	if Global.set_or_default(new_card, "X", false):
 		change_tribute("X")
 	else:
@@ -154,4 +156,8 @@ func change_font_size(font_size: int):
 
 
 func change_name_width(name_width: float):
-	$%NameLabel.scale.x = name_width / 10
+	%NameLabel.scale.x = name_width / 10
+
+
+func change_artist(artist_name: String):
+	%ArtistLabel.text = Global.format_rich_text("[i]{b} " + artist_name + "[/i]")

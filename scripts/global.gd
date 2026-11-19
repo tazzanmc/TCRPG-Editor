@@ -87,6 +87,10 @@ func format_rich_text(old_text: String) -> String:
 	new_text = new_text.replace("{x}","[img height=1.2em]res://assets/textures/generic_x.png[/img]")
 	new_text = new_text.replace("{X}","[img height=1.2em]res://assets/textures/generic_x.png[/img]")
 	
+	## Brush
+	new_text = new_text.replace("{b}","[img height=1.2em]res://assets/textures/brush.png[/img]")
+	new_text = new_text.replace("{B}","[img height=1.2em]res://assets/textures/brush.png[/img]")
+	
 	return new_text
 
 

@@ -56,6 +56,7 @@ func update_card(guilds: Array = []) -> void:
 	card_inst.change_art(art_file, Vector2(int(%XOffsetSlider.value),int(%YOffsetSlider.value)), %ScaleSlider.value)
 	card_inst.change_font_size(%FontSizeNumber.value)
 	card_inst.change_name_width(%NameWidthNumber.value)
+	card_inst.change_artist(%ArtistField.text)
 	
 	if %XCheckBox.button_pressed:
 		card_inst.change_tribute("X")
@@ -97,6 +98,7 @@ func load_card() -> void:
 	%CostNumber.value = Global.set_or_default(saved_card, "Tribute", 1)
 	%FontSizeNumber.value = Global.set_or_default(saved_card, "FontSize", 32.0)
 	%NameWidthNumber.value = Global.set_or_default(saved_card, "NameWidth", 10.0)
+	%ArtistField.text = Global.set_or_default(saved_card, "Artist", "")
 	
 	var saved_guilds : Array = Global.set_or_default(saved_card, "Guilds", [true, true, true, true, true])
 	var i : int = 0
@@ -123,6 +125,7 @@ func save_card() -> void:
 	saved_card["Tribute"] = %CostNumber.value
 	saved_card["FontSize"] = %FontSizeNumber.value
 	saved_card["NameWidth"] = %NameWidthNumber.value
+	saved_card["Artist"] = %ArtistField.text
 	
 	var guilds : Array
 	
